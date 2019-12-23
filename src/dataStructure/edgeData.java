@@ -59,7 +59,7 @@ public class edgeData implements edge_data {
 		this.src=0-1;//the start of edge
 		this.dest=-1;//the end of the edge
 		this.weigth=0;//the weight
-		this.info=null;//meta data
+		this.info=null;//for meta data in the algorithms
 		this.tag=0;//to make a sign in the algorithms 
 
 	}

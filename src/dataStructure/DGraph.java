@@ -1,18 +1,18 @@
 package dataStructure;
 
 import java.util.Collection;
+import java.util.HashMap;
 
 public class DGraph implements graph{
 
 	@Override
 	public node_data getNode(int key) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	@Override
 	public edge_data getEdge(int src, int dest) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -69,5 +69,9 @@ public class DGraph implements graph{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+	static int modeCount=0;
+	private HashMap<Integer, Integer> egdes=new HashMap<Integer,Integer>();
+	//the keys is the sorce of the edge and the value is the destination 
+	
 }
