@@ -1,7 +1,5 @@
 package dataStructure;
 
-import utils.Point3D;
-
 public class edgeData implements edge_data {
 
 	@Override
@@ -55,10 +53,10 @@ public class edgeData implements edge_data {
 			this.info=info;
 			this.tag=tag;*/
 
-	public edgeData() {
-		this.src=0-1;//the start of edge
-		this.dest=-1;//the end of the edge
-		this.weigth=0;//the weight
+	public edgeData(int src, int dest,int weigth) {
+		this.src=src;//the start of edge
+		this.dest=dest;//the end of the edge
+		this.weigth=weigth;//the weight
 		this.info=null;//for meta data in the algorithms
 		this.tag=0;//to make a sign in the algorithms 
 

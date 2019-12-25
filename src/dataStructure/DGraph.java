@@ -5,26 +5,48 @@ import java.util.HashMap;
 
 public class DGraph implements graph{
 
+	/**
+	 * this method returns the specific vertex by his id in O(1)
+	 */
 	@Override
 	public node_data getNode(int key) {
-
+		if(!this.vertesis.isEmpty()&&this.vertesis.containsKey(key))
+			return this.vertesis.get(key);
 		return null;
 	}
 
+	/**
+	 * this method returns a specific edge with unique source and destination in O(1)
+	 */
 	@Override
 	public edge_data getEdge(int src, int dest) {
-		return null;
+		/* example:
+		HashMap<Integer, edgeData> of1=new HashMap<Integer,edgeData>();
+		edgeData oneTo2Egde=new edgeData(1,2,50);
+		edgeData oneTo3Egde=new edgeData(1,3,50);
+		of1.put(2, oneTo2Egde);
+		edges.put(1,of1) ;*/
+		if(!this.edges.isEmpty()&&this.edges.containsKey(src)&&this.edges.get(src)!=null) 
+			//checking if the collection of the edges is not empty, if it contains  source
+			//and if for that source have a destination and it is not a independent vertex
+			//without edges
+			if(this.edges.get(src).containsKey(dest)) 
+				return this.edges.get(src).get(dest);
+			
+		
+		return null;//if the collection is Empty or the edge is not exist
 	}
 
 	@Override
 	public void addNode(node_data n) {
-		// TODO Auto-generated method stub
+		modeCount++;
+		this.vertesis.put(n.getKey(), (NodeData) n);
 		
 	}
 
 	@Override
 	public void connect(int src, int dest, double w) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -66,12 +88,16 @@ public class DGraph implements graph{
 
 	@Override
 	public int getMC() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.modeCount;
 	}
+
+	static int modeCount=0;//static value to count hoe many times the graph was changed
+	private HashMap<Integer, NodeData> vertesis=new HashMap<Integer,NodeData>();
+	//the keys is the id of the vertex and the value is a specific vertex 
 	
-	static int modeCount=0;
-	private HashMap<Integer, Integer> egdes=new HashMap<Integer,Integer>();
-	//the keys is the sorce of the edge and the value is the destination 
+	private HashMap<Integer,HashMap<Integer, edgeData>> edges =new HashMap 
+			<Integer,HashMap<Integer, edgeData>>();
+	//the keys is the source of the edge and the key of the HashMap the represents the values is the 
+	//destination of the edge
 	
 }

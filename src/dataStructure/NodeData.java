@@ -65,9 +65,9 @@ public class NodeData implements node_data {
 		this.info=info;
 		this.tag=tag;*/
 	
-	public NodeData() {
+	public NodeData(int id) {
 		this.Location=null;//the coordinate of the vertices with x,y,z 3D
-		this.id=-1;//the id of vertex ,i put it to -1 because id can be i to infinity 
+		this.id=id;//the id of vertex ,i put it to -1 because id can be i to infinity 
 		this.weigth=0;
 		this.info=null;//for meta data in the algorithms
 		this.tag=0;//to make a sign in the algorithms 
