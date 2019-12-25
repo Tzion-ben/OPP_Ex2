@@ -57,13 +57,6 @@ public class NodeData implements node_data {
 	private String info;
 	private int tag;
 	//****************** Constructors *****************
-
-	/*public NodeData(Point3D Location,int id,double Weigth,String info,int tag) {
-		this.Location=Location;
-		this.id=id;
-		this.Weigth=Weigth;
-		this.info=info;
-		this.tag=tag;*/
 	
 	public NodeData(int id) {
 		this.Location=null;//the coordinate of the vertices with x,y,z 3D

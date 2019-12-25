@@ -46,14 +46,7 @@ public class edgeData implements edge_data {
 	private int tag;
 	//****************** Constructors *****************
 
-	/*public NodeData(Point3D Location,int id,double Weigth,String info,int tag) {
-			this.Location=Location;
-			this.id=id;
-			this.Weigth=Weigth;
-			this.info=info;
-			this.tag=tag;*/
-
-	public edgeData(int src, int dest,int weigth) {
+	public edgeData(int src, int dest,double weigth) {
 		this.src=src;//the start of edge
 		this.dest=dest;//the end of the edge
 		this.weigth=weigth;//the weight
