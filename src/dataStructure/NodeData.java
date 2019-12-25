@@ -1,4 +1,9 @@
 package dataStructure;
+/**
+ * This class implements the node_data interface on a node that represents
+ * vertex
+ * @author Tzion
+ */
 
 import utils.Point3D;
 

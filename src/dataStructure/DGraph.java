@@ -1,7 +1,9 @@
 package dataStructure;
-
+/**
+ * 
+ * @author Tzion
+ */
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 
 public class DGraph implements graph{
@@ -46,6 +48,7 @@ public class DGraph implements graph{
 	 */
 	@Override
 	public void connect(int src, int dest, double w) {
+		modeCount++;
 		edgeData newEdge=new edgeData(src, dest, w);
 		edges.get(src).put(dest, newEdge);
 	}
@@ -70,30 +73,71 @@ public class DGraph implements graph{
 	}
 
 	/**
-	 * 
+	 * this method removes all the edges the goes from the vertex in O(1)
+	 * and then runs in O(n) on the all other vertices and remove all the 
+	 * edges from all the vertices that there destination is the vertex that
+	 * the method will remove
+	 * @return the data of the removed node (null if none). 
+	 * @param key 
 	 */
 	@Override
 	public node_data removeNode(int key) {
-		// TODO Auto-generated method stub
+		if(this.vertesis.containsKey(key)) {//iff a such vertex is exists remove it
+			modeCount++;
+			this.edges.remove(key);//removing all the edges that goes from the
+			//specific vertex
+			int edgesSize=edges.size();
+			for(int i=0;i<edgesSize;i++) {//O(n), |v|=n
+				if(i!=key)
+					if(edges.get(i).containsKey(key)) {
+						edges.get(i).remove(key);
+					}
+			}
+
+			node_data removeNode=new NodeData(key);
+			//save all the data of the removed vertex in new vertex to return
+			removeNode.setLocation(this.vertesis.get(key).getLocation());
+			removeNode.setWeight(this.vertesis.get(key).getWeight());
+			removeNode.setInfo(this.vertesis.get(key).getInfo());
+			removeNode.setTag(this.vertesis.get(key).getTag());
+			this.vertesis.remove(key);//remove the vertex
+			return removeNode;
+		}
+		//else: iff such vertex is NOT exists, return null
 		return null;
 	}
 
+	/**
+	 * this method will remove the edge iff it exists and return it's data,
+	 * if not, it will return null 
+	 */
 	@Override
 	public edge_data removeEdge(int src, int dest) {
-		// TODO Auto-generated method stub
+		if(edges.get(src).containsKey(dest)) {//iff a such edge is exists remove it
+			modeCount++;
+			edge_data removeEdge=new edgeData(src, dest, edges.get(src).get(dest).getWeight());
+			//save all the data of the removed edge in new edge to return
+			removeEdge.setInfo(edges.get(src).get(dest).getInfo());
+			removeEdge.setTag(edges.get(src).get(dest).getTag());
+			edges.get(src).remove(dest);
+			return removeEdge;
+		}
+		//else: iff such edge is NOT exists, return null
 		return null;
 	}
-
+	/**
+	 * this method returns the number of the vertices in the graph
+	 */
 	@Override
 	public int nodeSize() {
-		// TODO Auto-generated method stub
-		return 0;
+		return vertesis.size();
 	}
-
+	/**
+	 * this method returns the number of the edges in the directional graph
+	 */
 	@Override
 	public int edgeSize() {
-		// TODO Auto-generated method stub
-		return 0;
+		return edges.size();
 	}
 
 	@Override
