@@ -1,4 +1,10 @@
 package dataStructure;
+/**
+ * This class implements the interface of edge_data that represents tha all data
+ * that have to be in every edge of the graph
+ * @author tzion
+ *
+ */
 
 public class edgeData implements edge_data {
 
