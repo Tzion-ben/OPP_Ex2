@@ -54,15 +54,35 @@ public class NodeData implements node_data {
 		this.tag=t;
 	}
 
+	//****************** My methods *****************
+	/**
+	 * this method checking if two nodes are equal
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		boolean flag=true;
+		if(obj!=null&&(obj instanceof node_data)){
+			NodeData n=(NodeData) obj;
+			if(this.Location!=n.getLocation()||this.weigth!=n.weigth||
+					this.info!=n.getInfo()||this.tag!=n.getTag()
+					||this.id!=n.getKey())
+			{
+				flag=false;
+				return flag;
+			}
+		}
+		return flag;
+	}//end equal
+
 	//****************** Private Methods and Data *****************
-	
+
 	private Point3D Location;
 	private int id;
 	private double weigth;
 	private String info;
 	private int tag;
 	//****************** Constructors *****************
-	
+
 	public NodeData(int id) {
 		this.Location=null;//the coordinate of the vertices with x,y,z 3D
 		this.id=id;//the id of vertex ,i put it to -1 because id can be i to infinity 

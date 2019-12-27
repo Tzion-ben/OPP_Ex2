@@ -2,6 +2,7 @@ package algorithms;
 
 import java.util.List;
 
+import dataStructure.DGraph;
 import dataStructure.graph;
 import dataStructure.node_data;
 /**
@@ -12,12 +13,17 @@ import dataStructure.node_data;
  */
 public class Graph_Algo implements graph_algorithms{
 
+	/**
+	 * this method Initializing graphAlgo from graph type DGraph 
+	 */
 	@Override
 	public void init(graph g) {
-		// TODO Auto-generated method stub
-		
+		this.grafAlgo=g;
 	}
 
+	/**
+	 * this method Initializing graphAlgo from text file
+	 */
 	@Override
 	public void init(String file_name) {
 		// TODO Auto-generated method stub
@@ -59,5 +65,7 @@ public class Graph_Algo implements graph_algorithms{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	//****************** Private Methods and Data *****************
 
+	private graph grafAlgo=new DGraph(); 
 }

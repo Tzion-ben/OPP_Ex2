@@ -43,6 +43,26 @@ public class edgeData implements edge_data {
 		this.tag=t;
 	}
 
+	//****************** My methods *****************
+	/**
+	 * this method checking if two edges are equal
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		boolean flag=true;
+		if(obj!=null&&(obj instanceof edge_data)){
+			edgeData e=(edgeData) obj;
+			if(this.src!=e.getSrc()||this.dest!=e.dest||
+					this.info!=e.getInfo()||this.tag!=e.getTag()
+					||this.weigth!=e.getWeight())
+			{
+				flag=false;
+				return flag;
+			}
+		}
+		return flag;
+	}//end equal
+
 	//****************** Private Methods and Data *****************
 
 	private int src;
