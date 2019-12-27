@@ -9,56 +9,66 @@ import org.junit.jupiter.api.Test;
 
 import dataStructure.DGraph;
 import dataStructure.NodeData;
+import dataStructure.edgeData;
+import dataStructure.edge_data;
 import dataStructure.node_data;
 
 class DGraphTest {
 	
-	private static DGraph ex1;
+	private static DGraph graphTest;
+	private static NodeData zeroNode=new NodeData(0);
+	private static NodeData oneNode=new NodeData(1);
+	private static NodeData towNode=new NodeData(2);
+	private static NodeData Node3=new NodeData(3);
+	private static NodeData Node4=new NodeData(4);
+	private static NodeData Node5=new NodeData(5);
 	
 	@BeforeAll
 	public static void beforeall() {
-		ex1=new DGraph();
+		graphTest=new DGraph();
+		graphTest.addNode(zeroNode);
+		graphTest.addNode(oneNode);
+		graphTest.addNode(towNode);
+		graphTest.addNode(Node3);
+		graphTest.addNode(Node4);
+		graphTest.addNode(Node5);
 	}
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
-	}
-
+	
 	@Test
 	void testGetNode() {
-		NodeData zeroNode=new NodeData(0);
-		NodeData oneNode=new NodeData(1);
-		NodeData towNode=new NodeData(2);
-		ex1.addNode(zeroNode);
-		ex1.addNode(oneNode);
-		ex1.addNode(towNode);
-		assertEquals(zeroNode, ex1.getNode(0));
-		assertEquals(oneNode, ex1.getNode(1));
-		assertEquals(towNode, ex1.getNode(2));
-		
+		assertEquals(zeroNode, graphTest.getNode(0));
+		assertEquals(oneNode, graphTest.getNode(1));
+		assertEquals(towNode, graphTest.getNode(2));
 	}
 
 	@Test
 	void testGetEdge() {
-		fail("Not yet implemented");
+		graphTest.connect(4, 1, 50);
+		edge_data fourTo1Egde=graphTest.getEdge(4, 1);
+		edgeData expected=new edgeData(4,1,50);
+		assertEquals(expected.getSrc(), fourTo1Egde.getSrc());
+		assertEquals(expected.getDest(), fourTo1Egde.getDest());
+		assertEquals(expected.getInfo(), fourTo1Egde.getInfo());
+		assertEquals(expected.getTag(), fourTo1Egde.getTag());
+		assertEquals(expected.getWeight(), fourTo1Egde.getWeight());
 	}
 
 	@Test
 	void testConnect() {
-		//edgeData oneTo2Egde=new edgeData(1,2,50);
-		//edgeData oneTo3Egde=new edgeData(1,3,50);	
-		ex1.connect(4, 1, 50);
-		ex1.connect(3, 2, 55);
-
-		
+		graphTest.connect(4, 1, 50);
+		edge_data fourTo1Egde=graphTest.getEdge(4, 1);
+		edgeData expected=new edgeData(4,1,50);
+		assertEquals(expected.getSrc(), fourTo1Egde.getSrc());
+		assertEquals(expected.getDest(), fourTo1Egde.getDest());
+		assertEquals(expected.getInfo(), fourTo1Egde.getInfo());
+		assertEquals(expected.getTag(), fourTo1Egde.getTag());
+		assertEquals(expected.getWeight(), fourTo1Egde.getWeight());
+		System.out.println("mc: "+graphTest.getMC());
 	}
 
 	@Test
 	void testGetV() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
@@ -68,19 +78,13 @@ class DGraphTest {
 
 	@Test
 	void testRemoveNode() {
-		NodeData Node3=new NodeData(3);
-		NodeData Node4=new NodeData(4);
-		NodeData Node5=new NodeData(5);
-		ex1.addNode(Node3);
-		ex1.addNode(Node4);
-		ex1.addNode(Node5);
-		ex1.connect(0, 3, 50);
-		ex1.connect(0, 4, 50);
-		ex1.connect(0, 5, 50);
-		ex1.connect(5, 0, 50);
-		ex1.connect(2, 3, 50);
-		ex1.connect(4, 1, 50);
-		node_data rem=ex1.removeNode(0);
+		graphTest.connect(0, 3, 50);
+		graphTest.connect(0, 4, 50);
+		graphTest.connect(0, 5, 50);
+		graphTest.connect(5, 0, 50);
+		graphTest.connect(2, 3, 50);
+		graphTest.connect(4, 1, 50);
+		node_data rem=graphTest.removeNode(0);
 		
 	}
 

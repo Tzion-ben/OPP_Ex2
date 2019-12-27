@@ -125,6 +125,7 @@ public class DGraph implements graph{
 		//else: iff such edge is NOT exists, return null
 		return null;
 	}
+	
 	/**
 	 * this method returns the number of the vertices in the graph
 	 */
@@ -132,6 +133,7 @@ public class DGraph implements graph{
 	public int nodeSize() {
 		return vertesis.size();
 	}
+	
 	/**
 	 * this method returns the number of the edges in the directional graph
 	 */
@@ -139,7 +141,10 @@ public class DGraph implements graph{
 	public int edgeSize() {
 		return edges.size();
 	}
-
+	
+	/**
+	 * this method return the number of changes at the graph
+	 */
 	@Override
 	public int getMC() {
 		return this.modeCount;

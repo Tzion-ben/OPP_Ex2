@@ -69,6 +69,5 @@ public class NodeData implements node_data {
 		this.weigth=0;
 		this.info=null;//for meta data in the algorithms
 		this.tag=0;//to make a sign in the algorithms 
-
 	}
 }
