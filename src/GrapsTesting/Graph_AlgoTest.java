@@ -1,5 +1,6 @@
 package GrapsTesting;
 
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterEach;
@@ -36,10 +37,11 @@ class Graph_AlgoTest {
 		graphTestToGraphAlgo.addNode(node5);
 		graphTestToGraphAlgo.connect(0, 3, 50);
 		graphTestToGraphAlgo.connect(0, 4, 50);
-		graphTestToGraphAlgo.connect(0, 5, 50);
-		graphTestToGraphAlgo.connect(5, 0, 50);
+		//graphTestToGraphAlgo.connect(0, 5, 50);
+		//graphTestToGraphAlgo.connect(5, 0, 50);
 		graphTestToGraphAlgo.connect(2, 3, 50);
 		graphTestToGraphAlgo.connect(4, 1, 50);
+		
 	}
 
 	@BeforeEach
@@ -53,7 +55,9 @@ class Graph_AlgoTest {
 	@Test
 	void testInitGraph() {
 		graphAlgoTest.init(graphTestToGraphAlgo);
-		//assertEquals(graphAlgoTest., node0);
+		Graph_Algo graphAlgoTestInit=new Graph_Algo();
+		graphAlgoTestInit.init(graphTestToGraphAlgo);
+		assertEquals(graphAlgoTest, graphAlgoTestInit);
 	}
 
 	@Test
@@ -69,7 +73,30 @@ class Graph_AlgoTest {
 
 	@Test
 	void testIsConnected() {
-		fail("Not yet implemented");
+		graphAlgoTest.init(graphTestToGraphAlgo);
+		boolean isCon1=graphAlgoTest.isConnected();
+		//the first isn't connect so have to be false
+		if(isCon1)
+			fail();
+		
+		//and now i connect all the graph that it's have to be connected
+		graphTestToGraphAlgo.connect(0, 1, 50);
+		graphTestToGraphAlgo.connect(1, 0, 50);
+		graphTestToGraphAlgo.connect(1, 2, 50);
+		graphTestToGraphAlgo.connect(2, 1, 50);
+		graphTestToGraphAlgo.connect(2, 3, 50);
+		graphTestToGraphAlgo.connect(3, 2, 50);
+		graphTestToGraphAlgo.connect(3, 4, 50);
+		graphTestToGraphAlgo.connect(4, 3, 50);
+		graphTestToGraphAlgo.connect(4, 5, 50);
+		graphTestToGraphAlgo.connect(5, 4, 50);
+		//graphTestToGraphAlgo.connect(5, 0, 50);
+		//graphTestToGraphAlgo.connect(0, 5, 50);
+		graphAlgoTest.init(graphTestToGraphAlgo);
+		boolean isCon2=graphAlgoTest.isConnected();
+		//the second is connect so have to be true
+		if(!isCon2)
+			fail();
 	}
 
 	@Test
@@ -90,14 +117,16 @@ class Graph_AlgoTest {
 	@Test
 	void testCopy() {
 		graphAlgoTest.init(graphTestToGraphAlgo);
-
 		graph graphCopy=new DGraph();
 		graphCopy=(DGraph)graphAlgoTest.copy();
-
 		assertEquals(graphTestToGraphAlgo, graphCopy);
 
-		//Graph_Algo graphTestCopy=new Graph_Algo();
-		//graphTestCopy.init(graphCopy);
+		//change the copy graph that not have to change the original graph
+		NodeData node6=new NodeData(6);
+		graphCopy.addNode(node6);
+		graphCopy.connect(0, 6, 50);
+		assertNotEquals(graphTestToGraphAlgo, graphCopy);
+
 	}
 
 }
