@@ -36,11 +36,13 @@ public class DGraph implements graph{
 	@Override
 	public void addNode(node_data n) {
 		modeCount++;
-		this.vertesis.put(n.getKey(), n);
-		HashMap<Integer, edge_data> helpEdges=new HashMap<>();
-		this.edges.put(n.getKey(),helpEdges);
-		//when i create a vertex i create to him a specific hashMap 
-		//that will hold his edges in the future
+		if(!this.vertesis.containsKey(n.getKey())) {
+			this.vertesis.put(n.getKey(), n);
+			HashMap<Integer, edge_data> helpEdges=new HashMap<>();
+			this.edges.put(n.getKey(),helpEdges);
+			//when i create a vertex i create to him a specific hashMap 
+			//that will hold his edges in the future
+		}
 	}
 
 	/**
@@ -50,7 +52,8 @@ public class DGraph implements graph{
 	public void connect(int src, int dest, double w) {
 		modeCount++;
 		edgeData newEdge=new edgeData(src, dest, w);
-		edges.get(src).put(dest, newEdge);
+		if(!edges.get(src).containsValue(newEdge));
+			edges.get(src).put(dest, newEdge);
 	}
 
 	/**
@@ -125,7 +128,7 @@ public class DGraph implements graph{
 		//else: iff such edge is NOT exists, return null
 		return null;
 	}
-	
+
 	/**
 	 * this method returns the number of the vertices in the graph
 	 */
@@ -133,7 +136,7 @@ public class DGraph implements graph{
 	public int nodeSize() {
 		return vertesis.size();
 	}
-	
+
 	/**
 	 * this method returns the number of the edges in the directional graph
 	 */
@@ -141,7 +144,7 @@ public class DGraph implements graph{
 	public int edgeSize() {
 		return edges.size();
 	}
-	
+
 	/**
 	 * this method return the number of changes at the graph
 	 */
@@ -160,7 +163,7 @@ public class DGraph implements graph{
 	//the keys is the source of the edge and the key of the HashMap the represents the values is the 
 	//destination of the edge
 
-	//****************** Contractors *****************
+	//****************** Contractors and setters *****************
 
 	public void setVertesis() {
 		this.vertesis=new HashMap<Integer,node_data>();
