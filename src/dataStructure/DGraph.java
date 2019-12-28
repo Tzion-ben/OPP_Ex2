@@ -5,6 +5,7 @@ package dataStructure;
  */
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class DGraph implements graph{
 
@@ -53,7 +54,7 @@ public class DGraph implements graph{
 		modeCount++;
 		edgeData newEdge=new edgeData(src, dest, w);
 		if(!edges.get(src).containsValue(newEdge));
-			edges.get(src).put(dest, newEdge);
+		edges.get(src).put(dest, newEdge);
 	}
 
 	/**
@@ -152,6 +153,48 @@ public class DGraph implements graph{
 	public int getMC() {
 		return this.modeCount;
 	}
+
+
+	//****************** My methods *****************
+	/**
+	 * this method checking if two graps are equal
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if(obj!=null&&(obj instanceof graph)){
+			graph n=(DGraph) obj;
+			Collection<node_data> verticesN= n.getV();
+			Iterator<node_data>  vertN=verticesN.iterator();
+			Collection<node_data> verticesThis= this.getV();
+			Iterator<node_data>  vertT=verticesThis.iterator();
+
+			while(vertN.hasNext()||vertT.hasNext()) {
+				if(vertN.hasNext()&&vertT.hasNext()) {
+					NodeData tempN=(NodeData) vertN.next();
+					if(!tempN.equals(vertT.next()))
+						return false;
+
+					Collection<edge_data>edge= n.getE(tempN.getKey());
+					Iterator<edge_data>edgeN=edge.iterator();
+					Collection<edge_data>edgeThis= this.getE(tempN.getKey());
+					Iterator<edge_data>edgeT=edgeThis.iterator();
+
+					while(vertN.hasNext()&&edgeT.hasNext()) {
+						edgeData tempEdge=(edgeData) edgeN.next();
+						if(!tempEdge.equals(edgeT.next())) 
+							return false;
+					}
+				}
+				else
+					//if the graps are not the same then it returns false
+					return false;
+			}
+		}
+		else
+			return false;//if it's null or not instance of graph the false
+		return true;//if it passed all the chacking and it's good so return true
+	}//end equal
+
 
 	//****************** Private Methods and Data *****************
 

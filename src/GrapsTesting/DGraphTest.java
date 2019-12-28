@@ -179,4 +179,37 @@ class DGraphTest {
 		//the MC that will return is from the oparations at the Before All
 		assertEquals(expected, graphTest.getMC());
 	}
+	
+	@Test
+	void testEqualsGraphs() {
+		
+		NodeData node6=new NodeData(6);
+		
+		DGraph graphTestCopy;
+		graphTestCopy=new DGraph();
+		graphTestCopy.addNode(node0);
+		graphTestCopy.addNode(node1);
+		graphTestCopy.addNode(node2);
+		graphTestCopy.addNode(node3);
+		graphTestCopy.addNode(node4);
+		graphTestCopy.addNode(node5);
+		
+		//that the differers between the two graph
+		graphTestCopy.addNode(node6);
+		graphTestCopy.connect(0, 6, 50);
+		//end differers
+		
+		graphTestCopy.connect(0, 3, 50);
+		graphTestCopy.connect(0, 4, 50);
+		graphTestCopy.connect(0, 5, 50);
+		graphTestCopy.connect(5, 0, 50);
+		graphTestCopy.connect(2, 3, 50);
+		graphTestCopy.connect(4, 1, 50);
+		assertNotEquals(graphTest, graphTestCopy);
+		
+		//remove the differers
+		graphTestCopy.removeNode(6);
+		//end remove
+		assertEquals(graphTest, graphTestCopy);
+	}
 }

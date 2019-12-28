@@ -71,7 +71,9 @@ public class NodeData implements node_data {
 				return flag;
 			}
 		}
-		return flag;
+		else
+			return false;//if it's null or not instance of node_data the false
+		return true;//if it passed all the chacking and it's good so return true
 	}//end equal
 
 	//****************** Private Methods and Data *****************

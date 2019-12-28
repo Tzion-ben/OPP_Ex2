@@ -10,10 +10,12 @@ import org.junit.jupiter.api.Test;
 import algorithms.Graph_Algo;
 import dataStructure.DGraph;
 import dataStructure.NodeData;
+import dataStructure.graph;
+import dataStructure.node_data;
 
 class Graph_AlgoTest {
 
-	
+
 	private static DGraph graphTestToGraphAlgo;
 	private static Graph_Algo graphAlgoTest=new Graph_Algo();
 	private static NodeData node0=new NodeData(0);
@@ -39,7 +41,7 @@ class Graph_AlgoTest {
 		graphTestToGraphAlgo.connect(2, 3, 50);
 		graphTestToGraphAlgo.connect(4, 1, 50);
 	}
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
 	}
@@ -87,8 +89,15 @@ class Graph_AlgoTest {
 
 	@Test
 	void testCopy() {
-		
-		
+		graphAlgoTest.init(graphTestToGraphAlgo);
+
+		graph graphCopy=new DGraph();
+		graphCopy=(DGraph)graphAlgoTest.copy();
+
+		assertEquals(graphTestToGraphAlgo, graphCopy);
+
+		//Graph_Algo graphTestCopy=new Graph_Algo();
+		//graphTestCopy.init(graphCopy);
 	}
 
 }

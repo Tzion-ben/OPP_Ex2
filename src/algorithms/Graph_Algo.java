@@ -26,7 +26,7 @@ public class Graph_Algo implements graph_algorithms{
 	 */
 	@Override
 	public void init(graph g) {
-		this.grafAlgo=g;
+		this.grafAlgo= g;
 	}
 
 	/**
@@ -116,38 +116,30 @@ public class Graph_Algo implements graph_algorithms{
 			node_data tempVertex=new NodeData(vert.next().getKey());
 			graphToCopy.addNode(tempVertex);
 			//2. create the all edgaes for that specific vertex
-			Collection<edge_data> edgesOfNode= this.grafAlgo.getE(vert.next().getKey());
+			Collection<edge_data> edgesOfNode= this.grafAlgo.getE(tempVertex.getKey());
 			Iterator<edge_data> edge=edgesOfNode.iterator();
 			while(edge.hasNext()) {
-				graphToCopy.connect(edge.next().getSrc(), edge.next().getDest()
-						, edge.next().getWeight());
+				edge_data tempEdge=edge.next();
+				graphToCopy.connect(tempEdge.getSrc(), tempEdge.getDest()
+						, tempEdge.getWeight());
 			}//end creating the edges
 		}
-		return null;
+		return graphToCopy;
 	}
-
 	//****************** My methods *****************
 	/**
-	 * this method checking if two nodes are equal
-	 */
+	 * this method checking if two graps_Algo are equal
+	 
 	@Override
 	public boolean equals(Object obj) {
-		boolean flag=true;
 		if(obj!=null&&(obj instanceof graph_algorithms)){
-			graph n=(DGraph) obj;
-			if(!this.grafAlgo.getV().equals(n.getV()))
-			{
-				flag=false;
-				return flag;
-			}
-			else {
-				
-				
-			}
+			Graph_Algo n=(Graph_Algo) obj;
+			if(!this.grafAlgo.)
+				return false;
 		}
-		return flag;
+		return true;
 	}//end equal
-	
+*/
 	//****************** Private Methods and Data *****************
 	private graph grafAlgo; 
 
