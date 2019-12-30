@@ -80,13 +80,15 @@ public class Graph_Algo implements graph_algorithms{
 	}
 	/**
 	 * this method is checking if the directional graph is connect or not by
-	 * the method of DPS traversal on the graph recursivly
+	 * the method of DFS traversal on the graph recursivly
 	 */
 	@Override
 	public boolean isConnected() {
+		zeroAllTags();
 		Collection<node_data> vertices= this.grafAlgo.getV();
 		Iterator<node_data> vert=vertices.iterator();
-		while(vert.hasNext()) {
+		//while(vert.hasNext()) {
+		if(vert.hasNext()) {
 			node_data tempVertex=new NodeData(vert.next().getKey());			
 			DFSRec(tempVertex,this.grafAlgo);	
 		}
@@ -100,7 +102,8 @@ public class Graph_Algo implements graph_algorithms{
 		graph transpoGraph=transpozeGraph();
 		Collection<node_data> verticesT= transpoGraph.getV();
 		Iterator<node_data> vertT=verticesT.iterator();
-		while(vertT.hasNext()) {
+		//while(vertT.hasNext()) {
+		if(vertT.hasNext()) {
 			node_data tempVertexT=new NodeData(vertT.next().getKey());			
 			DFSRec(tempVertexT ,transpoGraph);	
 		}
@@ -110,10 +113,11 @@ public class Graph_Algo implements graph_algorithms{
 				return false;
 		}
 		return true;
-	}
+	}//end of isConnected
 
-	
-
+	/**
+	 * 
+	 */
 	@Override
 	public double shortestPathDist(int src, int dest) {
 		// TODO Auto-generated method stub
@@ -156,15 +160,15 @@ public class Graph_Algo implements graph_algorithms{
 		return graphToCopy;
 	}
 	//****************** My methods *****************
-	
+
 	/**
-	 * this methos is run on every neighbors of the node by the dest id of all the edges of the 
+	 * this private methos is run on every neighbors of the node by the dest id of all the edges of the 
 	 * specific node, and tag all the neighbors with '1' that mean this node was visited
 	 * so at the end if all the nodes tags will be 1 the graph is strongly connected  
 	 * tag==0 :NOT VISETED ,tag==1 :VISETED
 	 * @param ver
 	 */
-	public void DFSRec(node_data vert , graph g) {
+	private void DFSRec(node_data vert , graph g) {
 		vert.setTag(1);
 		Collection<edge_data> edgesOfVert= g.getE(vert.getKey());
 		Iterator<edge_data> edge=edgesOfVert.iterator();
@@ -177,10 +181,10 @@ public class Graph_Algo implements graph_algorithms{
 	}//end DFSRec
 
 	/**
-	 * return the transpose graph the this graph
+	 * this private method return the transpose graph the this graph
 	 * @return
 	 */
-	public graph transpozeGraph () {
+	private graph transpozeGraph () {
 		graph grafAlgoT=new DGraph();
 		Collection<node_data> vertices= this.grafAlgo.getV();
 		Iterator<node_data> vert=vertices.iterator();
@@ -202,11 +206,22 @@ public class Graph_Algo implements graph_algorithms{
 			}		
 		}//create all the transpose graph
 		return grafAlgoT;
+	} 
+
+	/**
+	 * this private method sets all the tags at the graph to zero 
+	 * before started to check at the method isConnectd
+	 */
+	private void zeroAllTags() {
+		Collection<node_data> vertices= this.grafAlgo.getV();
+		Iterator<node_data> vert=vertices.iterator();
+		while(vert.hasNext()) 
+			vert.next().setTag(0);;
 	}
-	
+
 	//****************** Private Methods and Data *****************
 	private graph grafAlgo; 
-
+	//****************** Contractor *****************
 	public Graph_Algo() {
 		this.grafAlgo=new DGraph();
 	}

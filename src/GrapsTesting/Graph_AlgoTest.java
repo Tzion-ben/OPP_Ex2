@@ -35,12 +35,12 @@ class Graph_AlgoTest {
 		graphTestToGraphAlgo.addNode(node3);
 		graphTestToGraphAlgo.addNode(node4);
 		graphTestToGraphAlgo.addNode(node5);
-		graphTestToGraphAlgo.connect(0, 3, 50);
-		graphTestToGraphAlgo.connect(0, 4, 50);
-		//graphTestToGraphAlgo.connect(0, 5, 50);
-		//graphTestToGraphAlgo.connect(5, 0, 50);
-		graphTestToGraphAlgo.connect(2, 3, 50);
-		graphTestToGraphAlgo.connect(4, 1, 50);
+//		graphTestToGraphAlgo.connect(0, 3, 50);
+//		graphTestToGraphAlgo.connect(0, 4, 50);
+//		graphTestToGraphAlgo.connect(0, 5, 50);
+//		graphTestToGraphAlgo.connect(5, 0, 50);
+//		graphTestToGraphAlgo.connect(2, 3, 50);
+//		graphTestToGraphAlgo.connect(4, 1, 50);
 		
 	}
 
@@ -93,6 +93,7 @@ class Graph_AlgoTest {
 		//graphTestToGraphAlgo.connect(5, 0, 50);
 		//graphTestToGraphAlgo.connect(0, 5, 50);
 		graphAlgoTest.init(graphTestToGraphAlgo);
+		
 		boolean isCon2=graphAlgoTest.isConnected();
 		//the second is connect so have to be true
 		if(!isCon2)
