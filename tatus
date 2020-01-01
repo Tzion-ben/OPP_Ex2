@@ -1,0 +1,121 @@
+[33mcommit ade74ef8488cdfe1ecceb4999eed71a971ce84f6[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Tzion_ben <tzion14@gmail.com>
+Date:   Mon Dec 30 02:08:33 2019 +0200
+
+    fixed a mistake at the isConnected method
+
+[33mcommit 8dcac01a453544a5e1f0c7de79959e2812a09e36[m
+Author: Tzion_ben <tzion14@gmail.com>
+Date:   Sun Dec 29 02:15:02 2019 +0200
+
+    finising the isConnected method
+
+[33mcommit c55ef09cd697f39b30b0f2d11075a7c4e1ba5f9f[m
+Author: Tzion_ben <tzion14@gmail.com>
+Date:   Sun Dec 29 01:16:47 2019 +0200
+
+    finished of the work day
+
+[33mcommit 3c3b7f02e81e743e4f0744ebc10de4dd5f4f52ad[m
+Author: Tzion_ben <tzion14@gmail.com>
+Date:   Sat Dec 28 17:06:02 2019 +0200
+
+    change at the equals of all the class of data
+
+[33mcommit d230cc83b26ec2777c07472879a997337d1551c8[m
+Author: Tzion_ben <tzion14@gmail.com>
+Date:   Sat Dec 28 04:05:25 2019 +0200
+
+    finishing of the work day
+
+[33mcommit b59454092f3ae41c120d21a52fc10493beb36eac[m
+Author: Tzion_ben <tzion14@gmail.com>
+Date:   Fri Dec 27 22:40:35 2019 +0200
+
+    finished the DGraphTest JUnit testing
+
+[33mcommit 99cdbf08849eef825e7c73dbfdb4fd9a975ecb53[m
+Author: Tzion_ben <tzion14@gmail.com>
+Date:   Fri Dec 27 02:01:46 2019 +0200
+
+    almoste finished the DGraph testing
+
+[33mcommit 08b075befcd844a4678a218194e2ae51ec952fc4[m
+Author: Tzion_ben <tzion14@gmail.com>
+Date:   Thu Dec 26 00:16:56 2019 +0200
+
+    finished the DGraph
+
+[33mcommit a2836c2dbe1617400584c437841b63336e0ce4dd[m
+Author: Tzion_ben <tzion14@gmail.com>
+Date:   Wed Dec 25 22:08:13 2019 +0200
+
+    add some changes
+
+[33mcommit 7029d482fb53d0104b299220e15a6d0e5df38783[m
+Author: Tzion_ben <tzion14@gmail.com>
+Date:   Wed Dec 25 18:39:14 2019 +0200
+
+    added  the DGrapgTest JUnit Class
+
+[33mcommit 9b93bb995b3b01b93550ab789f72b4eb54a3c217[m
+Author: Tzion_ben <tzion14@gmail.com>
+Date:   Wed Dec 25 18:20:41 2019 +0200
+
+    add testing
+
+[33mcommit dcd5104d028a8f5639c02b5ae488b9dedf0dcfd2[m
+Author: Tzion_ben <tzion14@gmail.com>
+Date:   Wed Dec 25 17:42:24 2019 +0200
+
+    some changes
+
+[33mcommit 4066088b1444fabe2e2ef0d40720a453ddbe5e94[m
+Author: Tzion_ben <tzion14@gmail.com>
+Date:   Wed Dec 25 03:13:22 2019 +0200
+
+    save changes in the end of the work day
+
+[33mcommit f07948e4db72f1b8fc70f7cd19d4ba5e2f5aeed5[m
+Merge: ebf5945 bb667d5
+Author: Tzion_ben <tzion14@gmail.com>
+Date:   Tue Dec 24 01:47:32 2019 +0200
+
+    Merge branch 'master' of https://github.com/Tzion-ben/OPP_Ex2
+
+[33mcommit ebf594500f0aab84bc8e6acbbbdb5b11752bc185[m
+Author: Tzion_ben <tzion14@gmail.com>
+Date:   Tue Dec 24 01:46:07 2019 +0200
+
+    save test
+
+[33mcommit bb667d5bc17893a936ef6f59c7373d142c31031c[m
+Author: Tzion_ben <tzion14@gmail.com>
+Date:   Tue Dec 24 01:33:34 2019 +0200
+
+    change the name of the project
+
+[33mcommit 52c947c28315e9bcbb7d3abc112fe07a0bc0718c[m
+Merge: 1f178b1 dae00c7
+Author: Tzion_ben <tzion14@gmail.com>
+Date:   Mon Dec 23 23:03:27 2019 +0200
+
+    Merge branch 'master' of https://github.com/Tzion-ben/OPP_Ex2
+
+[33mcommit 1f178b1bd7b397790e43e448d5481efc29138e08[m
+Author: Tzion_ben <tzion14@gmail.com>
+Date:   Mon Dec 23 23:02:16 2019 +0200
+
+    uploading after finishing the class of the edge and of the vertices
+
+[33mcommit dae00c72e5c4bd6e55f054b7817839a3700dc2f1[m
+Author: Tzion <57287269+Tzion-ben@users.noreply.github.com>
+Date:   Wed Dec 18 01:15:34 2019 +0200
+
+    Create README.md
+
+[33mcommit aa61c63a39a3b44026839394998b1efe26412e22[m
+Author: Tzion_ben <tzion14@gmail.com>
+Date:   Wed Dec 18 00:35:46 2019 +0200
+
+    starting the assignment

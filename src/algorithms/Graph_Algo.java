@@ -3,6 +3,7 @@ package algorithms;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -126,8 +127,30 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean flag=isConnected();
+		if (!flag)
+			return null;
+		//if the graph is not a strongly connected then we return null
+		
+		String shPath="";
+		Collection<node_data> vertices= this.grafAlgo.getV();
+		Iterator<node_data> vert=vertices.iterator();
+		if(vert.hasNext()) {
+		zeroAllTags();
+		infinityAllWeight();
+		this.grafAlgo.getNode(src).setWeight(0);
+		DFSRecForWeight(vert.next(),this.grafAlgo);
+		}
+
+		List<node_data> shPathVert=new ArrayList<node_data>();
+		Collection<node_data> vertices1= this.grafAlgo.getV();
+		Iterator<node_data> vertEnd=vertices1.iterator();
+		while(vertEnd.hasNext()) {
+			node_data tempVert=vertEnd.next();
+			if(tempVert.getTag()==1)
+				shPathVert.add(tempVert);
+		}
+		return shPathVert;
 	}
 
 	@Override
@@ -209,15 +232,52 @@ public class Graph_Algo implements graph_algorithms{
 	} 
 
 	/**
-	 * this private method sets all the tags at the graph to zero 
+	 * this private method sets all the w at the graph to zero 
 	 * before started to check at the method isConnectd
 	 */
 	private void zeroAllTags() {
 		Collection<node_data> vertices= this.grafAlgo.getV();
 		Iterator<node_data> vert=vertices.iterator();
 		while(vert.hasNext()) 
-			vert.next().setTag(0);;
+			vert.next().setTag(0);
 	}
+
+	/**
+	 * this private method sets all the Weight at the graph to infinity 
+	 * before started to check at the method the shortest path
+	 */
+	private void infinityAllWeight() {
+		Collection<node_data> vertices= this.grafAlgo.getV();
+		Iterator<node_data> vert=vertices.iterator();
+		while(vert.hasNext()) 
+			vert.next().setWeight(Double.MAX_VALUE);;
+	}
+
+	/**
+	 * this private methos is run on every neighbors of the node by the dest id of all the edges of the 
+	 * specific node, 
+	 * 
+	 * 
+	 * tag==0 :NOT VISETED ,tag==1 :VISETED
+	 * @param ver
+	 */
+	private void DFSRecForWeight(node_data vert , graph g) {
+		vert.setTag(1);
+		int minNodeId=Integer.MAX_VALUE;
+		Collection<edge_data> edgesOfVert= g.getE(vert.getKey());
+		Iterator<edge_data> edge=edgesOfVert.iterator();
+		while(edge.hasNext()) {
+			edge_data tempEdge=edge.next();
+			node_data neighborVert=g.getNode(tempEdge.getDest());
+			if((neighborVert.getTag()!=1)&&(vert.getWeight()+tempEdge.getWeight()<neighborVert.getWeight())) {
+				neighborVert.setWeight(vert.getWeight()+tempEdge.getWeight());
+				neighborVert.setTag(1);
+				if(neighborVert.getWeight()<minNodeId)
+					minNodeId=neighborVert.getKey();
+			}
+		}
+		DFSRecForWeight(this.grafAlgo.getNode(minNodeId),this.grafAlgo);
+	}//end DFSRec
 
 	//****************** Private Methods and Data *****************
 	private graph grafAlgo; 

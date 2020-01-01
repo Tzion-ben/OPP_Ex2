@@ -3,6 +3,8 @@ package GrapsTesting;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -102,7 +104,19 @@ class Graph_AlgoTest {
 
 	@Test
 	void testShortestPathDist() {
-		fail("Not yet implemented");
+		graphTestToGraphAlgo.connect(0, 1, 50);
+		graphTestToGraphAlgo.connect(1, 0, 10);
+		graphTestToGraphAlgo.connect(1, 2, 25);
+		graphTestToGraphAlgo.connect(2, 1, 3);
+		graphTestToGraphAlgo.connect(2, 3, 9);
+		graphTestToGraphAlgo.connect(3, 2, 7);
+		graphTestToGraphAlgo.connect(3, 4, 5);
+		graphTestToGraphAlgo.connect(4, 3, 15);
+		graphTestToGraphAlgo.connect(4, 5, 29);
+		graphTestToGraphAlgo.connect(5, 4, 38);
+		graphAlgoTest.init(graphTestToGraphAlgo);
+		List<node_data> sgPath =graphAlgoTest.shortestPath(0, 3);
+		System.out.println(sgPath.toString());
 	}
 
 	@Test
