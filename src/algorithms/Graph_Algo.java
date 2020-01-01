@@ -151,8 +151,6 @@ public class Graph_Algo implements graph_algorithms{
 			for(int i=0;i<vertesisToPath.length;i++) {
 				shPathVerts.add(this.grafAlgo.getNode(Integer.parseInt(vertesisToPath[i])));
 			}
-			
-			
 			return shPathVerts;
 		}
 		//if the pay is not exisest so returns null
@@ -284,7 +282,8 @@ public class Graph_Algo implements graph_algorithms{
 	 */
 	private void DFSRecForWeight(node_data vert ,int dest, graph g) {
 		vert.setTag(1);
-		int minNodeId=Integer.MAX_VALUE;
+		int minNodeIdW=Integer.MAX_VALUE;
+		double minNodeWeight=Double.MAX_VALUE;
 		Collection<edge_data> edgesOfVert= g.getE(vert.getKey());
 		Iterator<edge_data> edge=edgesOfVert.iterator();
 		while(edge.hasNext()) {
@@ -293,13 +292,15 @@ public class Graph_Algo implements graph_algorithms{
 			if((neighborVert.getTag()!=1)&&(vert.getWeight()+tempEdge.getWeight()<neighborVert.getWeight())) {
 				neighborVert.setWeight(vert.getWeight()+tempEdge.getWeight());
 				neighborVert.setTag(1);
-				if(neighborVert.getWeight()<minNodeId)
-					minNodeId=neighborVert.getKey();
-				neighborVert.setInfo(vert.getInfo()+","+neighborVert.getInfo());
+				if(neighborVert.getWeight()<minNodeWeight) { 
+					minNodeWeight=neighborVert.getWeight();
+					minNodeIdW=neighborVert.getKey();
+					neighborVert.setInfo(vert.getInfo()+","+neighborVert.getInfo());
+				}
 			}
 		}
-		if(minNodeId!=Integer.MAX_VALUE)
-			DFSRecForWeight(this.grafAlgo.getNode(minNodeId),dest,this.grafAlgo);
+		if(minNodeIdW!=Integer.MAX_VALUE && minNodeIdW!=dest)
+			DFSRecForWeight(this.grafAlgo.getNode(minNodeIdW),dest,this.grafAlgo);
 		else
 			return;
 
