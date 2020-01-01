@@ -1,4 +1,4 @@
-package GrapsTesting;
+package Tests;
 
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,20 +23,27 @@ class Graph_AlgoTest {
 	private static Graph_Algo graphAlgoTest=new Graph_Algo();
 	private static NodeData node0=new NodeData(0);
 	private static NodeData node1=new NodeData(1);
-	private static NodeData node2=new NodeData(2);
+	//private static NodeData node2=new NodeData(2);
 	private static NodeData node3=new NodeData(3);
-	private static NodeData node4=new NodeData(4);
+	private static NodeData node8=new NodeData(8);
+	private static NodeData node51=new NodeData(51);
+	private static NodeData node9=new NodeData(9);
 	private static NodeData node5=new NodeData(5);
+	private static NodeData node6=new NodeData(6);
+
 
 	@BeforeAll
 	public static void beforeall() {
 		graphTestToGraphAlgo=new DGraph();
 		graphTestToGraphAlgo.addNode(node0);
 		graphTestToGraphAlgo.addNode(node1);
-		graphTestToGraphAlgo.addNode(node2);
+		//graphTestToGraphAlgo.addNode(node2);
 		graphTestToGraphAlgo.addNode(node3);
-		graphTestToGraphAlgo.addNode(node4);
+		graphTestToGraphAlgo.addNode(node8);
+		graphTestToGraphAlgo.addNode(node51);
+		graphTestToGraphAlgo.addNode(node9);
 		graphTestToGraphAlgo.addNode(node5);
+		graphTestToGraphAlgo.addNode(node6);
 //		graphTestToGraphAlgo.connect(0, 3, 50);
 //		graphTestToGraphAlgo.connect(0, 4, 50);
 //		graphTestToGraphAlgo.connect(0, 5, 50);
@@ -106,14 +113,14 @@ class Graph_AlgoTest {
 	void testShortestPathDist() {
 		graphTestToGraphAlgo.connect(0, 1, 50);
 		graphTestToGraphAlgo.connect(1, 0, 10);
-		graphTestToGraphAlgo.connect(1, 2, 25);
-		graphTestToGraphAlgo.connect(2, 1, 3);
-		graphTestToGraphAlgo.connect(2, 3, 9);
-		graphTestToGraphAlgo.connect(3, 2, 7);
-		graphTestToGraphAlgo.connect(3, 4, 5);
-		graphTestToGraphAlgo.connect(4, 3, 15);
-		graphTestToGraphAlgo.connect(4, 5, 29);
-		graphTestToGraphAlgo.connect(5, 4, 38);
+		graphTestToGraphAlgo.connect(1, 3, 25);
+		graphTestToGraphAlgo.connect(3, 1, 3);
+		graphTestToGraphAlgo.connect(3, 8, 9);
+		graphTestToGraphAlgo.connect(8, 3, 7);
+		graphTestToGraphAlgo.connect(8, 0, 5);
+		graphTestToGraphAlgo.connect(0, 8, 15);
+		graphTestToGraphAlgo.connect(51, 0, 29);
+		graphTestToGraphAlgo.connect(0, 51, 38);
 		graphAlgoTest.init(graphTestToGraphAlgo);
 		List<node_data> sgPath =graphAlgoTest.shortestPath(0, 3);
 		System.out.println(sgPath.toString());

@@ -8,6 +8,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.management.StringValueExp;
+
 import dataStructure.DGraph;
 import dataStructure.NodeData;
 import dataStructure.edgeData;
@@ -131,26 +133,30 @@ public class Graph_Algo implements graph_algorithms{
 		if (!flag)
 			return null;
 		//if the graph is not a strongly connected then we return null
-		
-		String shPath="";
-		Collection<node_data> vertices= this.grafAlgo.getV();
-		Iterator<node_data> vert=vertices.iterator();
-		if(vert.hasNext()) {
+
 		zeroAllTags();
 		infinityAllWeight();
-		this.grafAlgo.getNode(src).setWeight(0);
-		DFSRecForWeight(vert.next(),this.grafAlgo);
-		}
+		setsAllInfo();
+		if(this.grafAlgo.getNode(src)!=null) {
+			//thet if is checking if the hashMap of the vertices is not empty and
+			//contains the vertex with the id of src 
+			this.grafAlgo.getNode(src).setWeight(0);
+			DFSRecForWeight(this.grafAlgo.getNode(src),dest,this.grafAlgo);
 
-		List<node_data> shPathVert=new ArrayList<node_data>();
-		Collection<node_data> vertices1= this.grafAlgo.getV();
-		Iterator<node_data> vertEnd=vertices1.iterator();
-		while(vertEnd.hasNext()) {
-			node_data tempVert=vertEnd.next();
-			if(tempVert.getTag()==1)
-				shPathVert.add(tempVert);
+			List<node_data> shPathVerts=new ArrayList<node_data>();
+			//Collection<node_data> vertices1= this.grafAlgo.getV();
+			//Iterator<node_data> vertEnd=vertices1.iterator();
+			String thePath=this.grafAlgo.getNode(dest).getInfo();
+			String [] vertesisToPath=thePath.split(",");
+			for(int i=0;i<vertesisToPath.length;i++) {
+				shPathVerts.add(this.grafAlgo.getNode(Integer.parseInt(vertesisToPath[i])));
+			}
+			
+			
+			return shPathVerts;
 		}
-		return shPathVert;
+		//if the pay is not exisest so returns null
+		return null;
 	}
 
 	@Override
@@ -254,6 +260,21 @@ public class Graph_Algo implements graph_algorithms{
 	}
 
 	/**
+	 * this private method sets all the info at the graph vertesis to the strinng
+	 * with the number of the node id ofr helf find the path at the method shortest
+
+	 */
+	private void setsAllInfo() {
+		String s="";
+		Collection<node_data> vertices= this.grafAlgo.getV();
+		Iterator<node_data> vert=vertices.iterator();
+		while(vert.hasNext()) {
+			node_data tempVert=vert.next();
+			tempVert.setInfo(String.valueOf(tempVert.getKey()));
+		}
+	}
+
+	/**
 	 * this private methos is run on every neighbors of the node by the dest id of all the edges of the 
 	 * specific node, 
 	 * 
@@ -261,7 +282,7 @@ public class Graph_Algo implements graph_algorithms{
 	 * tag==0 :NOT VISETED ,tag==1 :VISETED
 	 * @param ver
 	 */
-	private void DFSRecForWeight(node_data vert , graph g) {
+	private void DFSRecForWeight(node_data vert ,int dest, graph g) {
 		vert.setTag(1);
 		int minNodeId=Integer.MAX_VALUE;
 		Collection<edge_data> edgesOfVert= g.getE(vert.getKey());
@@ -274,9 +295,14 @@ public class Graph_Algo implements graph_algorithms{
 				neighborVert.setTag(1);
 				if(neighborVert.getWeight()<minNodeId)
 					minNodeId=neighborVert.getKey();
+				neighborVert.setInfo(vert.getInfo()+","+neighborVert.getInfo());
 			}
 		}
-		DFSRecForWeight(this.grafAlgo.getNode(minNodeId),this.grafAlgo);
+		if(minNodeId!=Integer.MAX_VALUE)
+			DFSRecForWeight(this.grafAlgo.getNode(minNodeId),dest,this.grafAlgo);
+		else
+			return;
+
 	}//end DFSRec
 
 	//****************** Private Methods and Data *****************
