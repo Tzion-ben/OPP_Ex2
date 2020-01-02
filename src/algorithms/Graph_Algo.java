@@ -144,13 +144,13 @@ public class Graph_Algo implements graph_algorithms{
 			DFSRecForWeight(this.grafAlgo.getNode(src),dest,this.grafAlgo);
 
 			List<node_data> shPathVerts=new ArrayList<node_data>();
-			//Collection<node_data> vertices1= this.grafAlgo.getV();
-			//Iterator<node_data> vertEnd=vertices1.iterator();
 			String thePath=this.grafAlgo.getNode(dest).getInfo();
 			String [] vertesisToPath=thePath.split(",");
 			for(int i=0;i<vertesisToPath.length;i++) {
 				shPathVerts.add(this.grafAlgo.getNode(Integer.parseInt(vertesisToPath[i])));
 			}
+			//at the last add the dest vertex
+			shPathVerts.add(this.grafAlgo.getNode(dest));
 			return shPathVerts;
 		}
 		//if the pay is not exisest so returns null
@@ -273,6 +273,24 @@ public class Graph_Algo implements graph_algorithms{
 	}
 
 	/**
+	 * this private method find the vertex with the minimum Weight
+	 */
+	private int findMinWeight() {
+		int minNodeId=Integer.MAX_VALUE;
+		double minNodeWeight=Double.MAX_VALUE;
+		Collection<node_data> vertices= this.grafAlgo.getV();
+		Iterator<node_data> vert=vertices.iterator();
+		while(vert.hasNext()) {
+			node_data tempVert=vert.next();
+			if(tempVert.getWeight()<minNodeWeight&&tempVert.getTag()!=1) {
+				minNodeWeight=tempVert.getWeight();
+				minNodeId=tempVert.getKey();
+			}
+		}
+		return minNodeId;
+	}
+
+	/**
 	 * this private methos is run on every neighbors of the node by the dest id of all the edges of the 
 	 * specific node,  and check what node contaon the smallest weight
 	 * 
@@ -282,8 +300,6 @@ public class Graph_Algo implements graph_algorithms{
 	 */
 	private void DFSRecForWeight(node_data vert ,int dest, graph g) {
 		vert.setTag(1);
-		int minNodeIdW=Integer.MAX_VALUE;
-		double minNodeWeight=Double.MAX_VALUE;
 		Collection<edge_data> edgesOfVert= g.getE(vert.getKey());
 		Iterator<edge_data> edge=edgesOfVert.iterator();
 		while(edge.hasNext()) {
@@ -291,16 +307,14 @@ public class Graph_Algo implements graph_algorithms{
 			node_data neighborVert=g.getNode(tempEdge.getDest());
 			if((neighborVert.getTag()!=1)&&(vert.getWeight()+tempEdge.getWeight()<neighborVert.getWeight())) {
 				neighborVert.setWeight(vert.getWeight()+tempEdge.getWeight());
-				neighborVert.setTag(1);
-				if(neighborVert.getWeight()<minNodeWeight) { 
-					minNodeWeight=neighborVert.getWeight();
-					minNodeIdW=neighborVert.getKey();
-					neighborVert.setInfo(vert.getInfo()+","+neighborVert.getInfo());
-				}
+				neighborVert.setInfo(vert.getInfo()+","+neighborVert.getInfo());
 			}
 		}
-		if(minNodeIdW!=Integer.MAX_VALUE && minNodeIdW!=dest)
+		int minNodeIdW= findMinWeight();
+		if(minNodeIdW!=dest) {
+			this.grafAlgo.getNode(dest).setInfo("");
 			DFSRecForWeight(this.grafAlgo.getNode(minNodeIdW),dest,this.grafAlgo);
+		}
 		else
 			return;
 

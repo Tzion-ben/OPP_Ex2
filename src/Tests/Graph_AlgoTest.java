@@ -113,9 +113,9 @@ class Graph_AlgoTest {
 
 	@Test
 	void testShortestPathDist() {
-		graphTestToGraphAlgo.connect(0, 1, 50);
-		graphTestToGraphAlgo.connect(1, 0, 10);
-		graphTestToGraphAlgo.connect(1, 3, 25);
+		graphTestToGraphAlgo.connect(0, 1, 1);
+		graphTestToGraphAlgo.connect(1, 0, 1);
+		graphTestToGraphAlgo.connect(1, 3, 2);
 		graphTestToGraphAlgo.connect(3, 1, 3);
 		graphTestToGraphAlgo.connect(3, 8, 9);
 		graphTestToGraphAlgo.connect(8, 3, 7);
@@ -125,13 +125,15 @@ class Graph_AlgoTest {
 		graphTestToGraphAlgo.connect(0, 51, 38);
 
 		graphTestToGraphAlgo.connect(9, 3, 38);
-		graphTestToGraphAlgo.connect(5, 3, 8);
+		graphTestToGraphAlgo.connect(5, 3, 800);
 		//graphTestToGraphAlgo.connect(6, 3, 10);
 		graphTestToGraphAlgo.connect(0, 6, 38);
 		graphTestToGraphAlgo.connect(6, 5, 59);
 		graphTestToGraphAlgo.connect(3, 9, 38);
 		graphTestToGraphAlgo.connect(6, 17, 100);
 		graphTestToGraphAlgo.connect(17, 3, 2);
+		graphTestToGraphAlgo.connect(6, 0, 1);
+
 
 
 
@@ -140,7 +142,6 @@ class Graph_AlgoTest {
 		graphAlgoTest.init(graphTestToGraphAlgo);
 		boolean falg=graphAlgoTest.isConnected();
 		List<node_data> sgPath =graphAlgoTest.shortestPath(6, 3);
-		System.out.println(sgPath.toString());
 		int x=10;
 	}
 
