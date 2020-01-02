@@ -115,7 +115,7 @@ class Graph_AlgoTest {
 	void testShortestPathDist() {
 		graphTestToGraphAlgo.connect(0, 1, 1);
 		graphTestToGraphAlgo.connect(1, 0, 1);
-		graphTestToGraphAlgo.connect(1, 3, 2);
+		graphTestToGraphAlgo.connect(1, 3, 2.9);
 		graphTestToGraphAlgo.connect(3, 1, 3);
 		graphTestToGraphAlgo.connect(3, 8, 9);
 		graphTestToGraphAlgo.connect(8, 3, 7);
@@ -133,21 +133,42 @@ class Graph_AlgoTest {
 		graphTestToGraphAlgo.connect(6, 17, 100);
 		graphTestToGraphAlgo.connect(17, 3, 2);
 		graphTestToGraphAlgo.connect(6, 0, 1);
-
-
-
-
-
-
 		graphAlgoTest.init(graphTestToGraphAlgo);
-		boolean falg=graphAlgoTest.isConnected();
-		List<node_data> sgPath =graphAlgoTest.shortestPath(6, 3);
-		int x=10;
+		
+		double expected=4.9;
+		double actual=graphAlgoTest.shortestPathDist(6, 3);
+		assertEquals(expected, actual);
+		
 	}
 
 	@Test
 	void testShortestPath() {
-		fail("Not yet implemented");
+		graphTestToGraphAlgo.connect(0, 1, 1);
+		graphTestToGraphAlgo.connect(1, 0, 1);
+		graphTestToGraphAlgo.connect(1, 3, 2.9);
+		graphTestToGraphAlgo.connect(3, 1, 3);
+		graphTestToGraphAlgo.connect(3, 8, 9);
+		graphTestToGraphAlgo.connect(8, 3, 7);
+		graphTestToGraphAlgo.connect(8, 0, 5);
+		graphTestToGraphAlgo.connect(0, 8, 15);
+		graphTestToGraphAlgo.connect(51, 0, 29);
+		graphTestToGraphAlgo.connect(0, 51, 38);
+
+		graphTestToGraphAlgo.connect(9, 3, 38);
+		graphTestToGraphAlgo.connect(5, 3, 800);
+		//graphTestToGraphAlgo.connect(6, 3, 10);
+		graphTestToGraphAlgo.connect(0, 6, 38);
+		graphTestToGraphAlgo.connect(6, 5, 59);
+		graphTestToGraphAlgo.connect(3, 9, 38);
+		graphTestToGraphAlgo.connect(6, 17, 100);
+		graphTestToGraphAlgo.connect(17, 3, 2);
+		graphTestToGraphAlgo.connect(6, 0, 1);
+		graphAlgoTest.init(graphTestToGraphAlgo);
+
+		boolean falg=graphAlgoTest.isConnected();
+		List<node_data> sgPath =graphAlgoTest.shortestPath(6, 3);
+		
+	
 	}
 
 	@Test

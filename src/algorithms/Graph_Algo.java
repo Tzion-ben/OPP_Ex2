@@ -119,12 +119,17 @@ public class Graph_Algo implements graph_algorithms{
 	}//end of isConnected
 
 	/**
-	 * 
+	 * this method return the length of the shortest path between src to dest,
+	 * if the path is does not exist it's returns -1
 	 */
 	@Override
 	public double shortestPathDist(int src, int dest) {
-		// TODO Auto-generated method stub
-		return 0;
+		double shWeight=-1;
+		List<node_data> sgPath =shortestPath(src,dest);
+		if(sgPath!=null) 
+			shWeight=this.grafAlgo.getNode(dest).getWeight();
+		
+		return shWeight;
 	}
 
 	@Override
