@@ -90,7 +90,6 @@ public class Graph_Algo implements graph_algorithms{
 		zeroAllTags();
 		Collection<node_data> vertices= this.grafAlgo.getV();
 		Iterator<node_data> vert=vertices.iterator();
-		//while(vert.hasNext()) {
 		if(vert.hasNext()) {
 			node_data tempVertex=new NodeData(vert.next().getKey());			
 			DFSRec(tempVertex,this.grafAlgo);	
@@ -105,7 +104,6 @@ public class Graph_Algo implements graph_algorithms{
 		graph transpoGraph=transpozeGraph();
 		Collection<node_data> verticesT= transpoGraph.getV();
 		Iterator<node_data> vertT=verticesT.iterator();
-		//while(vertT.hasNext()) {
 		if(vertT.hasNext()) {
 			node_data tempVertexT=new NodeData(vertT.next().getKey());			
 			DFSRec(tempVertexT ,transpoGraph);	
