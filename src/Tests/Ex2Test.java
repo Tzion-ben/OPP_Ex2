@@ -38,14 +38,14 @@ class Ex2Test {
 	}
 
 	@Test
-//	void testConnectivity() {
-//		_alg = new Graph_Algo(_graph);
-//		boolean con = _alg.isConnected();
-//		if(!con) {
-//			fail("shoulbe be connected");
-//		}
-//	}
-//	@Test
+	void testConnectivity() {
+		_alg = new Graph_Algo(_graph);
+		boolean con = _alg.isConnected();
+		if(!con) {
+			fail("shoulbe be connected");
+		}
+	}
+	@Test
 	void testgraph() {
 		boolean ans = drawGraph(_graph);
 		assertTrue(ans);

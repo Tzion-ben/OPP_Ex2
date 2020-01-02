@@ -326,7 +326,7 @@ public class Graph_Algo implements graph_algorithms{
 	//****************** Private Methods and Data *****************
 	private graph grafAlgo; 
 	//****************** Contractor *****************
-	public Graph_Algo() {
-		this.grafAlgo=new DGraph();
+	public Graph_Algo(graph g) {
+		init(g);
 	}
 }

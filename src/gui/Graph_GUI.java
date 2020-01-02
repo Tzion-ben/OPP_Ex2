@@ -16,12 +16,11 @@ import utils.*;
 public class Graph_GUI {
 
 	/**
-	 * this method initials a graph algo from regula DGraph
+	 * this method initials a graph algo from regular DGraph
 	 * @param g
 	 */
 	public void initToAlgoGraph(graph g) {
-		Graph_Algo gAlgo=new Graph_Algo();
-		gAlgo.init(g);
+		Graph_Algo gAlgo=new Graph_Algo(g);
 	}
 	/**
 	 * 

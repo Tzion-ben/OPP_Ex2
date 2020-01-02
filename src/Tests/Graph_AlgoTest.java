@@ -20,7 +20,7 @@ class Graph_AlgoTest {
 
 
 	private static DGraph graphTestToGraphAlgo;
-	private static Graph_Algo graphAlgoTest=new Graph_Algo();
+	private static Graph_Algo graphAlgoTest=new Graph_Algo(graphTestToGraphAlgo);
 	private static NodeData node0=new NodeData(0);
 	private static NodeData node1=new NodeData(1);
 	private static NodeData node17=new NodeData(17);
@@ -65,8 +65,7 @@ class Graph_AlgoTest {
 
 	@Test
 	void testInitGraph() {
-		graphAlgoTest.init(graphTestToGraphAlgo);
-		Graph_Algo graphAlgoTestInit=new Graph_Algo();
+		Graph_Algo graphAlgoTestInit=new Graph_Algo(graphTestToGraphAlgo);
 		graphAlgoTestInit.init(graphTestToGraphAlgo);
 		assertEquals(graphAlgoTest, graphAlgoTestInit);
 	}
