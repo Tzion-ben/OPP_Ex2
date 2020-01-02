@@ -2,6 +2,7 @@ package Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -55,8 +56,11 @@ class Ex2Test {
 		graph ans = new DGraph();
 		return ans;
 	}
+	
+	
 	boolean drawGraph(graph g) { 
-		// YOUR GUI graph draw 
+		Graph_GUI graphD = new Graph_GUI(g); 
+		
 		return true;
 		
 	}

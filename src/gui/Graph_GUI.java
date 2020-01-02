@@ -6,14 +6,24 @@ package gui;
  */
 
 
+import java.awt.Menu;
+import java.awt.MenuBar;
+import java.awt.MenuItem;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Collection;
 import java.util.Iterator;
+
+import javax.swing.JFrame;
 
 import algorithms.Graph_Algo;
 import dataStructure.*;
 import utils.*;
 
-public class Graph_GUI {
+public class Graph_GUI extends JFrame implements ActionListener, MouseListener
+{
 
 	/**
 	 * this method initials a graph algo from regular DGraph
@@ -22,45 +32,67 @@ public class Graph_GUI {
 	public void initToAlgoGraph(graph g) {
 		Graph_Algo gAlgo=new Graph_Algo(g);
 	}
+		
 	/**
-	 * 
-	 * @param g
-	 * @return
+	 * constructor to draw the graph
 	 */
-	public boolean drawGraph(graph g) {
-		boolean flag=false;
-		if(g!=null) {
-			setCanvas(g);
-			Collection<node_data> vertices= g.getV();
-			Iterator<node_data> vert=vertices.iterator();
-			while(vert.hasNext()) {
+	public Graph_GUI(graph g) {
+		initGUIGraph();
+	}
+	
+	private void initGUIGraph() 
+	{
+		this.setSize(500, 500);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-			}
-
-
-
-			initToAlgoGraph(g);
-			return true;
-		}
-		return flag;
+		MenuBar menuBar = new MenuBar();
+		Menu menu = new Menu("Menu Of Actions");
+		menuBar.add(menu);
+		this.setMenuBar(menuBar);
+		MenuItem sa = new MenuItem("Save");
+		MenuItem load = new MenuItem("Load");
+		MenuItem Algorithms = new MenuItem("Algorithms");
+		sa.addActionListener(this);
+		load.addActionListener(this);
+		Algorithms.addActionListener(this);
+		menu.add(sa);
+		menu.add(load);
+		menu.add(Algorithms);
+		this.addMouseListener(this);
 	}
 
-	/**
-	 * this method set the canvas depend on the locations of the most right verts and most
-	 * left vertex
-	 */
-	public void setCanvas(graph g) {
-		Collection<node_data> vertices= g.getV();
-		Iterator<node_data> vert=vertices.iterator();
-		double xPos=-1;
-		double yPos=-1;
-		while(vert.hasNext()) {
-			
-		}
-		StdDraw.setCanvasSize((int)xPos, (int)yPos);;
-	}
 
 	public void drawNode() {
+
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 
 	}
 }
