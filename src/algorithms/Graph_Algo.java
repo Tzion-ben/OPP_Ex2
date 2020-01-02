@@ -274,7 +274,7 @@ public class Graph_Algo implements graph_algorithms{
 
 	/**
 	 * this private methos is run on every neighbors of the node by the dest id of all the edges of the 
-	 * specific node, 
+	 * specific node,  and check what node contaon the smallest weight
 	 * 
 	 * 
 	 * tag==0 :NOT VISETED ,tag==1 :VISETED
