@@ -30,11 +30,11 @@ public class Graph_GUI
 		Range rx=new Range(-150, 150);
 		Range ry=new Range(-150, 150);
 
-		
 		Collection<node_data> vertices= g.getV();
 		Iterator<node_data> vert=vertices.iterator();
 		if(vertices.size()!=0) {
-			StdDraw.setCanvasSize(1000,1000);
+			setCanvs();
+			setMenu();
 			StdDraw.setXscale(rx.get_min(), rx.get_max());
 			StdDraw.setYscale(ry.get_min(), ry.get_max());
 			while(vert.hasNext()) {
@@ -45,22 +45,60 @@ public class Graph_GUI
 		else
 			drawEmptyG();
 	}
+	 /**
+	  * this method set the size of the canvas for the graph
+	  */
+	private void setCanvs() {
+		StdDraw.setCanvasSize(1100,650);
+		
+	}
 
 	/**
 	 * this method draw a just canvas because the graph is empty
 	 */
 	private void drawEmptyG() {
-		StdDraw.setCanvasSize(500,500);
+		StdDraw.setCanvasSize(1100,650);
+		setMenu();
 	}
 
+	/**
+	 * this method drawing the vertices of the graph
+	 * @param n
+	 */
 
-	public void drawNode(node_data n) {
-		StdDraw.setPenRadius(0.01);
+	private void drawNode(node_data n) {
+		StdDraw.setPenRadius(0.025);
 		StdDraw.setPenColor(StdDraw.BLUE);
 		StdDraw.setFont(new Font("TimesRoman", Font.BOLD, 15));
 		Point3D nodeLoc=n.getLocation();
 		StdDraw.point(nodeLoc.x(), nodeLoc.y());
 	}
+	
+	/**
+	 * this method set the menu bar for the graph canvas
+	 */
+	private void setMenu() {
+		MenuBar menuBar = new MenuBar();
+		Menu menu = new Menu("Menu");
+		menuBar.add(menu);
+		
+		//setMenuBar(menuBar);
+	}
+
+//	/**
+//	 * this method drawing the direction of the edge from src node to dest node
+//	 * @param n
+//	 */
+//	private void drawDirection(node_data src ,node_data dest) {
+//		StdDraw.setPenRadius(0.02);
+//		StdDraw.setPenColor(StdDraw.DARK_GRAY);
+//		StdDraw.setFont(new Font("TimesRoman", Font.BOLD, 15));
+//		Point3D nodeLocSrc=src.getLocation();
+//		Point3D nodeLocDest=dest.getLocation();
+//
+//		if(dest.getLocation().x()>src.getLocation().x())
+//			StdDraw.point(dest.getLocation().x()-, nodeLoc.y());
+//	}
 
 
 
