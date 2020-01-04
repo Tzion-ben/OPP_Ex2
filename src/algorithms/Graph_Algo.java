@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -122,11 +123,12 @@ public class Graph_Algo implements graph_algorithms{
 	 */
 	@Override
 	public double shortestPathDist(int src, int dest) {
-		double shWeight=-1;
+		double shWeight=Integer.MAX_VALUE;
+		//if the path is not exisest return infinity
 		List<node_data> sgPath =shortestPath(src,dest);
 		if(sgPath!=null) 
 			shWeight=this.grafAlgo.getNode(dest).getWeight();
-		
+
 		return shWeight;
 	}
 
@@ -159,11 +161,61 @@ public class Graph_Algo implements graph_algorithms{
 		//if the pay is not exisest so returns null
 		return null;
 	}
-
+	/**
+	 * this method 
+	 */
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean flag=isConnected();
+		if (!flag)
+			return null;
+		//if the graph is not a strongly connected then we return null
+		List<node_data> pathToReturn=new ArrayList<node_data>();
+		int countNullAction=0;
+
+		for(int i=0;i<targets.size()-1;i++) {
+			int notFirst=0;
+			List<node_data> tempPath=new ArrayList<node_data>();
+			tempPath=shortestPath(targets.get(i), targets.get(i+1));
+			if(tempPath.isEmpty()) 
+				countNullAction++;
+			Iterator<node_data> addToReturnPath=tempPath.iterator();
+			while(addToReturnPath.hasNext()) {
+				node_data tempAdd=addToReturnPath.next();
+				if(notFirst>=1)//to not be a duplicate at the return list
+					pathToReturn.add(tempAdd);
+				else {
+					if(pathToReturn.isEmpty())
+						pathToReturn.add(tempAdd);
+				}
+				notFirst++;
+
+
+			}
+		}
+		if(countNullAction==0) 
+			return pathToReturn;
+		//so if wasn't null at the way we can return this path , else, we move on in reverse order
+		else {
+			pathToReturn.clear();
+			Collections.reverse(targets);
+			//checking the opposite direction
+			for(int i=0;i<targets.size()-1;i++) {
+				int notFirst=0;
+				List<node_data> tempPath=new ArrayList<node_data>();
+				tempPath=shortestPath(targets.get(i), targets.get(i+1));
+				if(tempPath==null) 
+					return null;
+				Iterator<node_data> addToReturnPath=tempPath.iterator();
+				while(addToReturnPath.hasNext()) {
+					notFirst++;
+					node_data tempAdd=addToReturnPath.next();
+					if(notFirst>=1)//to not be a duplicate at the return list
+						pathToReturn.add(tempAdd);
+				}
+			}
+		}
+		return pathToReturn;
 	}
 
 	/**
@@ -294,10 +346,12 @@ public class Graph_Algo implements graph_algorithms{
 	}
 
 	/**
-	 * this private methos is run on every neighbors of the node by the dest id of all the edges of the 
-	 * specific node,  and check what node contaon the smallest weight
-	 * 
-	 * 
+	 * this private method is run on every neighbors of the node and if the wight of the neighbors nodes of
+	 * this node is bigger then the wight of the edge to this node and the wight of the src node so it changes
+	 * it to the wight of the edge and the src node (based on the Dijkstra Algorithm).
+	 * In every iteration the  method calculates the smallest vertex and move from that vertex so on and recursvly
+	 * calculates all weight of his neighbors and then take the smallest vertex again and so on
+	 * Info of the dest vertex is full with the shortest path, if found more sorter then reset the info
 	 * tag==0 :NOT VISETED ,tag==1 :VISETED
 	 * @param ver
 	 */
@@ -318,10 +372,64 @@ public class Graph_Algo implements graph_algorithms{
 			this.grafAlgo.getNode(dest).setInfo("");
 			DFSRecForWeight(this.grafAlgo.getNode(minNodeIdW),dest,this.grafAlgo);
 		}
-		else
-			return;
+		else {
+			Collection<edge_data> edgesDest= g.getE(dest);
+			Iterator<edge_data> edgeD=edgesDest.iterator();
+			double minW=Double.MAX_VALUE;
+			int minWId=Integer.MAX_VALUE;
+			while(edgeD.hasNext()) {
+				edge_data tempE=edgeD.next();
+				if(this.grafAlgo.getNode(tempE.getDest()).getWeight()<minW) {
+					minW=this.grafAlgo.getNode(tempE.getDest()).getWeight();
+					minWId=this.grafAlgo.getNode(tempE.getDest()).getKey();
+				}
+
+
+			}
+			this.grafAlgo.getNode(dest).setInfo("");
+			this.grafAlgo.getNode(dest).setInfo(this.grafAlgo.getNode(minWId).getInfo());
+		}
+
+
+		return;
 
 	}//end DFSRec
+
+	//	/**
+	//	 * this private method is run on every neighbors of the node and if the wight of the neighbors nodes of
+	//	 * this node is bigger then the wight of the edge to this node and the wight of the src node so it changes
+	//	 * it to the wight of the edge and the src node (based on the Dijkstra Algorithm).
+	//	 * This methd is greedy algorithem for the methos TSP
+	//	 * tag==0 :NOT VISETED ,tag==1 :VISETED
+	//	 * @param ver
+	//	 */
+	//	private void DFSRecForWeightGreedyAlgo(node_data vert ,int dest, graph g) {
+	//		vert.setTag(1);
+	//		double minNodeIdW=Double.MAX_VALUE;
+	//		int minNodeId=Integer.MAX_VALUE;
+	//		Collection<edge_data> edgesOfVert= g.getE(vert.getKey());
+	//		Iterator<edge_data> edge=edgesOfVert.iterator();
+	//		while(edge.hasNext()) {
+	//			edge_data tempEdge=edge.next();
+	//			node_data neighborVert=g.getNode(tempEdge.getDest());
+	//			if((neighborVert.getTag()!=1)&&(vert.getWeight()+tempEdge.getWeight()<neighborVert.getWeight())) {
+	//				neighborVert.setWeight(vert.getWeight()+tempEdge.getWeight());
+	//				if(neighborVert.getWeight()<minNodeIdW) {
+	//					minNodeIdW=neighborVert.getWeight();
+	//					minNodeId=neighborVert.getKey();
+	//					neighborVert.setInfo(vert.getInfo()+","+neighborVert.getInfo());
+	//				}
+	//			}
+	//		}
+	//		//int minNodeIdW= findMinWeight();
+	//		if(minNodeId!=dest) {
+	//			//this.grafAlgo.getNode(dest).setInfo("");
+	//			DFSRecForWeight(this.grafAlgo.getNode(minNodeId),dest,this.grafAlgo);
+	//		}
+	//		else
+	//			return;
+	//
+	//	}//end DFSRec
 
 	//****************** Private Methods and Data *****************
 	private graph grafAlgo; 

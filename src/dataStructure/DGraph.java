@@ -53,8 +53,11 @@ public class DGraph implements graph{
 	public void connect(int src, int dest, double w) {
 		modeCount++;
 		edgeData newEdge=new edgeData(src, dest, w);
-		if(!edges.get(src).containsValue(newEdge));
-		edges.get(src).put(dest, newEdge);
+		if(!edges.get(src).containsKey(dest))
+			edges.get(src).put(dest, newEdge);
+		else 
+			System.out.println("Can't add the edge, it alredy contains\n"
+					+ "such edge with that src and that dest\n");
 	}
 
 	/**
@@ -92,8 +95,9 @@ public class DGraph implements graph{
 			//specific vertex
 			int edgesSize=edges.size();
 			for(int i=0;i<edgesSize;i++) {//O(n), |v|=n
-				if(i!=key)
-					if(edges.get(i).containsKey(key)) {
+				int stam=this.vertesis.get(i).getKey();
+				if(key!=this.vertesis.get(i).getKey()) {
+					if(edges.get(i).containsKey(key)) 
 						edges.get(i).remove(key);
 					}
 			}
