@@ -100,7 +100,12 @@ class Graph_AlgoTest {
 
 	@Test
 	void testInitString() {
-		graphAlgoTest.init("graph.csv");
+		try {
+			graphAlgoTest.init("graph.csv");
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
 	}
 

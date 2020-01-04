@@ -44,6 +44,8 @@ public class DGraph implements graph{
 			//when i create a vertex i create to him a specific hashMap 
 			//that will hold his edges in the future
 		}
+		else 
+			throw new RuntimeException();
 	}
 
 	/**
@@ -56,8 +58,9 @@ public class DGraph implements graph{
 		if(!edges.get(src).containsKey(dest))
 			edges.get(src).put(dest, newEdge);
 		else 
-			System.out.println("Can't add the edge, it alredy contains\n"
-					+ "such edge with that src and that dest\n");
+			throw new RuntimeException();
+		//			System.out.println("Can't add the edge, it alredy contains\n"
+		//					+ "such edge with that src and that dest\n");
 	}
 
 	/**
@@ -95,11 +98,10 @@ public class DGraph implements graph{
 			//specific vertex
 			int edgesSize=edges.size();
 			for(int i=0;i<edgesSize;i++) {//O(n), |v|=n
-				int stam=this.vertesis.get(i).getKey();
 				if(key!=this.vertesis.get(i).getKey()) {
 					if(edges.get(i).containsKey(key)) 
 						edges.get(i).remove(key);
-					}
+				}
 			}
 
 			node_data removeNode=new NodeData(key);
