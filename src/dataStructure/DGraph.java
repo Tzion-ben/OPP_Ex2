@@ -36,8 +36,8 @@ public class DGraph implements graph{
 
 	@Override
 	public void addNode(node_data n) {
-		modeCount++;
 		if(!this.vertesis.containsKey(n.getKey())) {
+			modeCount++;
 			this.vertesis.put(n.getKey(), n);
 			HashMap<Integer, edge_data> helpEdges=new HashMap<>();
 			this.edges.put(n.getKey(),helpEdges);
@@ -53,10 +53,14 @@ public class DGraph implements graph{
 	 */
 	@Override
 	public void connect(int src, int dest, double w) {
-		modeCount++;
-		edgeData newEdge=new edgeData(src, dest, w);
-		if(!edges.get(src).containsKey(dest))
-			edges.get(src).put(dest, newEdge);
+		if(this.vertesis.containsKey(src)&&this.vertesis.containsKey(dest)) {
+			modeCount++;
+			edgeData newEdge=new edgeData(src, dest, w);
+			if(!edges.get(src).containsKey(dest))
+				edges.get(src).put(dest, newEdge);
+			else
+				throw new RuntimeException();
+		}
 		else 
 			throw new RuntimeException();
 		//			System.out.println("Can't add the edge, it alredy contains\n"

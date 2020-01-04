@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import dataStructure.DGraph;
 import dataStructure.NodeData;
-import gui.Graph_GUI;
+import gui.GraphGUI;
 import utils.Point3D;
 
 class GUI_Test {
@@ -55,7 +55,7 @@ class GUI_Test {
 	}
 	@Test
 	void testDraw() {
-		Graph_GUI drawTest=new Graph_GUI(graphTest);
+		GraphGUI drawTest=new GraphGUI(graphTest);
 	}
 
 }

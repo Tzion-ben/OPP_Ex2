@@ -15,6 +15,7 @@ import java.util.Iterator;
 
 import javax.management.StringValueExp;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import utils.*;
 import algorithms.Graph_Algo;
@@ -110,18 +111,25 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 			g.fillOval(pVert.ix(), pVert.iy(), 10, 10);
 			String nodeId= String.valueOf(tempVert.getKey());
 			g.drawString(nodeId, tempVert.getLocation().ix(), tempVert.getLocation().iy());
+			if(vertices.size()>1) {
+				Collection<edge_data> edgesOfNodeId= this.graphGui.getE(tempVert.getKey());
+				Iterator<edge_data> edge=edgesOfNodeId.iterator();
 
-			Collection<edge_data> edgesOfNodeId= this.graphGui.getE(tempVert.getKey());
-			Iterator<edge_data> edge=edgesOfNodeId.iterator();
-			while(edge.hasNext()) {
-				edge_data tempEdge=edge.next();
-				g.setColor(Color.DARK_GRAY);
-				g.drawLine(tempVert.getLocation().ix(), tempVert.getLocation().iy(),
-						this.graphGui.getNode(tempEdge.getDest()).getLocation().ix(),
-						this.graphGui.getNode(tempEdge.getDest()).getLocation().iy());
+				while(edge.hasNext()) {
+					edge_data tempEdge=edge.next();
+					g.setColor(Color.DARK_GRAY);
+					g.drawLine(tempVert.getLocation().ix(), tempVert.getLocation().iy(),
+							this.graphGui.getNode(tempEdge.getDest()).getLocation().ix(),
+							this.graphGui.getNode(tempEdge.getDest()).getLocation().iy());
+					g.setColor(Color.GREEN);
+					String wEdge= String.valueOf(tempEdge.getWeight());
+					g.drawString(wEdge, this.graphGui.getNode(tempEdge.getDest()).getLocation().ix()-30,
+							this.graphGui.getNode(tempEdge.getDest()).getLocation().iy());
+				}
 			}
 		}
 	}
+
 
 
 
@@ -170,7 +178,7 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-
+		addEdgePaintFromGiu();
 	}
 
 	@Override
@@ -197,22 +205,28 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 	}
 
 
-	//	/**
-	//	 * this method add vertex to the canvas
-	//	 */
-	//	private void addEdgePaintFromGiu(Point3D src,Point3D dest) {
-	//		
-	//		edge_data newEdge=new edgeData();
-	//		this.graphGui.addNode(newVert);
-	//		newVert.setLocation(p);
-	//		idNodes++;
-	//		System.out.println("add vertex number: "+idNodes);
-	//		System.out.println("The coardinate is : "+p.ix()+" "+p.iy()+" ");
-	//	}
+	/**
+	 * this method add vertex to the canvas
+	 */
+	private void addEdgePaintFromGiu() {
+		try {
+			String srcId = JOptionPane.showInputDialog(this, "Enter source of the edge");
+			String destId = JOptionPane.showInputDialog(this, "Enter destination of the edge");
+			String edgeEeight = JOptionPane.showInputDialog(this, "Enter the weight of the edge");
+			this.graphGui.connect(Integer.parseInt(srcId), Integer.parseInt(destId),
+					Double.parseDouble(edgeEeight));
+			repaint();
+		}
+		catch (Exception e) {
+			JOptionPane.showMessageDialog(this,"THE EDGE IS ALREDY IN ,ERROR");
+			}
+
+
+	}
 
 	/**
 	 * this method make the locations of the nodes that at the corners
-	 * and make them in
+	 * and make them in between the size of the my canvas
 	 */
 	private void setWorngLocatins() {
 		Collection<node_data> vertices= this.graphGui.getV();
@@ -222,12 +236,21 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 			Point3D pVertOld=new Point3D(tempVert.getLocation().ix(), tempVert.getLocation().iy());
 			Point3D pVertNew=new Point3D(tempVert.getLocation().ix(), tempVert.getLocation().iy());
 			if(pVertOld.ix()<11||pVertOld.iy()<61) {
-				if(pVertOld.ix()<11&&pVertOld.iy()<61)
-					pVertNew. add(10, 60, 0);
+				//based on the logicaky that the courdinate cant be less then zero
+				if(pVertOld.ix()<11&&pVertOld.iy()<61) 	
+					pVertNew. add(10, 61-pVertOld.iy(), 0);
 				else if(pVertOld.ix()<11)
 					pVertNew. add(10, 0, 0);
 				else if(pVertOld.iy()<61)
-					pVertNew. add(0, 60, 0);
+					pVertNew. add(0, 61-pVertOld.iy(), 0);
+			}
+			if(pVertOld.ix()>981||pVertOld.iy()>681) {
+				if(pVertOld.ix()>981&&pVertOld.iy()>681) 
+					pVertNew. add(-(pVertOld.ix()-980), -(pVertOld.iy()-680), 0);
+				else if(pVertOld.ix()>981)
+					pVertNew. add(-(pVertOld.ix()-980), 0, 0);
+				else if(pVertOld.iy()>681)
+					pVertNew. add(0, -(pVertOld.iy()-680), 0);
 			}
 			this.graphGui.getNode(tempVert.getKey()).setLocation(pVertNew);
 			tempVert.setLocation(pVertNew);

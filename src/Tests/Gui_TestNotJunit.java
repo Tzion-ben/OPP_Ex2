@@ -3,7 +3,6 @@ package Tests;
 import dataStructure.DGraph;
 import dataStructure.NodeData;
 import gui.GraphGUI;
-import gui.Graph_GUI;
 import utils.Point3D;
 
 public class Gui_TestNotJunit {
@@ -29,7 +28,7 @@ public class Gui_TestNotJunit {
 		
 		Point3D p0=new Point3D(50, 400, 0);
 		Point3D p1=new Point3D(159, 420, 0);
-		Point3D p2=new Point3D(760, 104, 0);
+		Point3D p2=new Point3D(1980, 1680, 0);
 		Point3D p3=new Point3D(50, 120, 0);
 		Point3D p4=new Point3D(10, 60, 0);
 		Point3D p5=new Point3D(10, 93, 0);
@@ -49,11 +48,10 @@ public class Gui_TestNotJunit {
 		graphTest.connect(5, 0, 50);
 		graphTest.connect(2, 3, 50);
 		graphTest.connect(4, 1, 50);
-		//Graph_GUI drawTest=new Graph_GUI(graphTest);
 		GraphGUI drawTest=new GraphGUI(graphTest);
 		
 		graphTestEmpty=new DGraph();
-		//GraphGUI drawTest=new GraphGUI(graphTestEmpty);
+		//GraphGUI drawTest2=new GraphGUI(graphTestEmpty);
 
 
 
