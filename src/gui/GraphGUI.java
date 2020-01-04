@@ -13,12 +13,14 @@ import java.awt.event.MouseListener;
 import java.util.Collection;
 import java.util.Iterator;
 
+import javax.management.StringValueExp;
 import javax.swing.JFrame;
 
 import utils.*;
 import algorithms.Graph_Algo;
 import algorithms.graph_algorithms;
 import dataStructure.NodeData;
+import dataStructure.edgeData;
 import dataStructure.edge_data;
 import dataStructure.graph;
 import dataStructure.node_data;
@@ -63,28 +65,31 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 	 */
 	private void addMenu() {
 		MenuBar menuBar = new MenuBar();
-		Menu sOl = new Menu("Save and Load");
+		Menu sOl = new Menu("Save or Load");
 		Menu algo = new Menu("Algorithems");
+		MenuItem save = new MenuItem("Save the Graph");
+		MenuItem load = new MenuItem("Load the Graph");
+		MenuItem isConnected = new MenuItem("isConnected");
+		MenuItem shortestPathDist = new MenuItem("shortestPathDist");
+		MenuItem shortestPath = new MenuItem("shortestPath");
+		MenuItem TSP = new MenuItem("TSP");
+
 		menuBar.add(sOl);
 		menuBar.add(algo);
 		this.setMenuBar(menuBar);
-		MenuItem save = new MenuItem("Save the Graph");
-		save.addActionListener(this);
-		MenuItem load = new MenuItem("Load the Graph");
-		load.addActionListener(this);
 		sOl.add(save);
 		sOl.add(load);
-		MenuItem isConnected = new MenuItem("isConnected");
+
+		save.addActionListener(this);
+		load.addActionListener(this);
 		isConnected.addActionListener(this);
-		algo.add(isConnected);
-		MenuItem shortestPathDist = new MenuItem("shortestPathDist");
 		shortestPathDist.addActionListener(this);
-		algo.add(shortestPathDist);
-		MenuItem shortestPath = new MenuItem("shortestPath");
 		shortestPath.addActionListener(this);
-		algo.add(shortestPath);
-		MenuItem TSP = new MenuItem("TSP");
 		TSP.addActionListener(this);
+
+		algo.add(isConnected);
+		algo.add(shortestPathDist);
+		algo.add(shortestPath);
 		algo.add(TSP);
 		this.addMouseListener(this);
 	}
@@ -95,25 +100,27 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 	public void paint(Graphics g)
 	{
 		super.paint(g);
+		setWorngLocatins();
 		Collection<node_data> vertices= this.graphGui.getV();
 		Iterator<node_data> vert=vertices.iterator();
 		while(vert.hasNext()) {
 			node_data tempVert=vert.next();
 			g.setColor(Color.BLACK);
-			g.fillOval((int)tempVert.getLocation().x(), (int)tempVert.getLocation().y(), 10, 10);
-			if(vertices.size()>1) {
-				Collection<edge_data> edgesOfNodeId= this.graphGui.getE(tempVert.getKey());
-				Iterator<edge_data> edge=edgesOfNodeId.iterator();
-				while(edge.hasNext()) {
-					edge_data tempEdge=edge.next();
-					g.setColor(Color.DARK_GRAY);
-					g.drawLine(tempVert.getLocation().ix(), tempVert.getLocation().iy(),
-							this.graphGui.getNode(tempEdge.getDest()).getLocation().ix(),
-							this.graphGui.getNode(tempEdge.getDest()).getLocation().iy());
-				}
+			Point3D pVert=new Point3D(tempVert.getLocation().ix(), tempVert.getLocation().iy());
+			g.fillOval(pVert.ix(), pVert.iy(), 10, 10);
+			String nodeId= String.valueOf(tempVert.getKey());
+			g.drawString(nodeId, tempVert.getLocation().ix(), tempVert.getLocation().iy());
+
+			Collection<edge_data> edgesOfNodeId= this.graphGui.getE(tempVert.getKey());
+			Iterator<edge_data> edge=edgesOfNodeId.iterator();
+			while(edge.hasNext()) {
+				edge_data tempEdge=edge.next();
+				g.setColor(Color.DARK_GRAY);
+				g.drawLine(tempVert.getLocation().ix(), tempVert.getLocation().iy(),
+						this.graphGui.getNode(tempEdge.getDest()).getLocation().ix(),
+						this.graphGui.getNode(tempEdge.getDest()).getLocation().iy());
 			}
 		}
-
 	}
 
 
@@ -132,7 +139,7 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 		{
 			System.out.println("Load the Graph IN !!");
 		}
-		
+
 		else if(str.compareTo("isonnected")==0)
 		{
 			System.out.println("123");
@@ -173,6 +180,8 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 		Point3D p = new Point3D(x,y);
 		addNodePaintFromGui(p);
 		repaint();
+		//addEdgePaintFromGiu();
+		repaint();
 	}
 
 	/**
@@ -187,6 +196,43 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 		System.out.println("The coardinate is : "+p.ix()+" "+p.iy()+" ");
 	}
 
+
+	//	/**
+	//	 * this method add vertex to the canvas
+	//	 */
+	//	private void addEdgePaintFromGiu(Point3D src,Point3D dest) {
+	//		
+	//		edge_data newEdge=new edgeData();
+	//		this.graphGui.addNode(newVert);
+	//		newVert.setLocation(p);
+	//		idNodes++;
+	//		System.out.println("add vertex number: "+idNodes);
+	//		System.out.println("The coardinate is : "+p.ix()+" "+p.iy()+" ");
+	//	}
+
+	/**
+	 * this method make the locations of the nodes that at the corners
+	 * and make them in
+	 */
+	private void setWorngLocatins() {
+		Collection<node_data> vertices= this.graphGui.getV();
+		Iterator<node_data> vert=vertices.iterator();
+		while(vert.hasNext()) {
+			node_data tempVert=vert.next();
+			Point3D pVertOld=new Point3D(tempVert.getLocation().ix(), tempVert.getLocation().iy());
+			Point3D pVertNew=new Point3D(tempVert.getLocation().ix(), tempVert.getLocation().iy());
+			if(pVertOld.ix()<11||pVertOld.iy()<61) {
+				if(pVertOld.ix()<11&&pVertOld.iy()<61)
+					pVertNew. add(10, 60, 0);
+				else if(pVertOld.ix()<11)
+					pVertNew. add(10, 0, 0);
+				else if(pVertOld.iy()<61)
+					pVertNew. add(0, 60, 0);
+			}
+			this.graphGui.getNode(tempVert.getKey()).setLocation(pVertNew);
+			tempVert.setLocation(pVertNew);
+		}
+	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {

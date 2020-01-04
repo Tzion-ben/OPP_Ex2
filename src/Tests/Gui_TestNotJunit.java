@@ -27,12 +27,12 @@ public class Gui_TestNotJunit {
 		graphTest.addNode(node4);
 		graphTest.addNode(node5);
 		
-		Point3D p0=new Point3D(100, 12, 0);
-		Point3D p1=new Point3D(500, 42, 0);
-		Point3D p2=new Point3D(440, 104, 0);
-		Point3D p3=new Point3D(450, 120, 0);
-		Point3D p4=new Point3D(79, 84, 0);
-		Point3D p5=new Point3D(100, 93, 0);
+		Point3D p0=new Point3D(50, 400, 0);
+		Point3D p1=new Point3D(159, 420, 0);
+		Point3D p2=new Point3D(760, 104, 0);
+		Point3D p3=new Point3D(50, 120, 0);
+		Point3D p4=new Point3D(10, 60, 0);
+		Point3D p5=new Point3D(10, 93, 0);
 
 		
 		node0.setLocation(p0);
