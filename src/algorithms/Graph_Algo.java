@@ -189,8 +189,6 @@ public class Graph_Algo implements graph_algorithms{
 						pathToReturn.add(tempAdd);
 				}
 				notFirst++;
-
-
 			}
 		}
 		if(countNullAction==0) 
@@ -394,42 +392,6 @@ public class Graph_Algo implements graph_algorithms{
 		return;
 
 	}//end DFSRec
-
-	//	/**
-	//	 * this private method is run on every neighbors of the node and if the wight of the neighbors nodes of
-	//	 * this node is bigger then the wight of the edge to this node and the wight of the src node so it changes
-	//	 * it to the wight of the edge and the src node (based on the Dijkstra Algorithm).
-	//	 * This methd is greedy algorithem for the methos TSP
-	//	 * tag==0 :NOT VISETED ,tag==1 :VISETED
-	//	 * @param ver
-	//	 */
-	//	private void DFSRecForWeightGreedyAlgo(node_data vert ,int dest, graph g) {
-	//		vert.setTag(1);
-	//		double minNodeIdW=Double.MAX_VALUE;
-	//		int minNodeId=Integer.MAX_VALUE;
-	//		Collection<edge_data> edgesOfVert= g.getE(vert.getKey());
-	//		Iterator<edge_data> edge=edgesOfVert.iterator();
-	//		while(edge.hasNext()) {
-	//			edge_data tempEdge=edge.next();
-	//			node_data neighborVert=g.getNode(tempEdge.getDest());
-	//			if((neighborVert.getTag()!=1)&&(vert.getWeight()+tempEdge.getWeight()<neighborVert.getWeight())) {
-	//				neighborVert.setWeight(vert.getWeight()+tempEdge.getWeight());
-	//				if(neighborVert.getWeight()<minNodeIdW) {
-	//					minNodeIdW=neighborVert.getWeight();
-	//					minNodeId=neighborVert.getKey();
-	//					neighborVert.setInfo(vert.getInfo()+","+neighborVert.getInfo());
-	//				}
-	//			}
-	//		}
-	//		//int minNodeIdW= findMinWeight();
-	//		if(minNodeId!=dest) {
-	//			//this.grafAlgo.getNode(dest).setInfo("");
-	//			DFSRecForWeight(this.grafAlgo.getNode(minNodeId),dest,this.grafAlgo);
-	//		}
-	//		else
-	//			return;
-	//
-	//	}//end DFSRec
 
 	//****************** Private Methods and Data *****************
 	private graph grafAlgo; 
