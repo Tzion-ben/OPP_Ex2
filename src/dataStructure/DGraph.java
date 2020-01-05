@@ -97,11 +97,12 @@ public class DGraph implements graph{
 	public node_data removeNode(int key) {
 		if(this.vertesis.containsKey(key)) {//iff a such vertex is exists remove it
 			modeCount++;
-			this.edges.remove(key);//removing all the edges that goes from the
+			//this.edges.remove(key);//removing all the edges that goes from the
 			//specific vertex
 			int edgesSize=edges.size();
 			for(int i=0;i<edgesSize;i++) {//O(n), |v|=n
-				if(key!=this.vertesis.get(i).getKey()) {
+				node_data temp=this.vertesis.get(key);
+				if(key!=temp.getKey()) {
 					if(edges.get(i).containsKey(key)) 
 						edges.get(i).remove(key);
 				}
