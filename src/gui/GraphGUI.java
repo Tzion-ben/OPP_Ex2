@@ -15,7 +15,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.management.StringValueExp;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -49,6 +48,7 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 			checkNodeCount();
 			addMenu();
 		}
+		
 	}
 
 	/**
@@ -126,14 +126,21 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 				Iterator<edge_data> edge=edgesOfNodeId.iterator();
 				while(edge.hasNext()) {
 					edge_data tempEdge=edge.next();
-					g.setColor(Color.BLUE);
+					g.setColor(Color.GREEN);
 					g.drawLine(tempVert.getLocation().ix(), tempVert.getLocation().iy(),
 							this.graphGui.getNode(tempEdge.getDest()).getLocation().ix(),
 							this.graphGui.getNode(tempEdge.getDest()).getLocation().iy());
 					g.setColor(Color.GREEN);
+
+
+					g.setColor(Color.BLUE);
 					String wEdge= String.valueOf(tempEdge.getWeight());
-					g.drawString(wEdge, this.graphGui.getNode(tempEdge.getDest()).getLocation().ix()-30,
-							this.graphGui.getNode(tempEdge.getDest()).getLocation().iy()-30);
+					int wayDrayX = ((this.graphGui.getNode(tempEdge.getSrc()).getLocation().ix() + 2) 
+							+ ((this.graphGui.getNode(tempEdge.getDest()).getLocation().ix()) + 2)*8) / 9;
+					int wayDrayY = ((this.graphGui.getNode(tempEdge.getSrc()).getLocation().iy() + 2)
+							+ ((this.graphGui.getNode(tempEdge.getDest()).getLocation().iy()) + 2)*8) / 9;
+					g.fillOval(wayDrayX, wayDrayY, 10, 10);
+					g.drawString(wEdge,wayDrayX,wayDrayY);
 				}
 			}
 		}
@@ -150,26 +157,33 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 		}
 		else if(str.compareTo("Save the Graph")==0)
 		{
+			try {
 			initToAlgoGraph(this.graphGui);
-			GrapAlgo.save("New Graph");
+			GrapAlgo.save("graphSavedByGUI.csv");
 			JOptionPane.showMessageDialog(this,"The graph was saved at the project folder");
+			}
+			catch (Exception FileNotFoundException) {
+				JOptionPane.showMessageDialog(this,"CAN'T to save, Invalid action");			}
 		}
 		else if(str.compareTo("Load the Graph")==0)
 		{
 			try {
-				if(this.graphGui.edgeSize()==0&&this.graphGui.nodeSize()==0) {
-					initToAlgoGraph(this.graphGui);
-					String toLoad = JOptionPane.showInputDialog(this, "Enter name of the file to load");
-					GrapAlgo.init(toLoad);
-					graph gAlgotemp=GrapAlgo.copy();
-					GraphGUI g=new GraphGUI(gAlgotemp);
-					//repaint();
+				//this.graphGui=null;
+				//if(this.graphGui.edgeSize()==0&&this.graphGui.nodeSize()==0) {
+				
+				//this.graphGui.d
+				initToAlgoGraph(this.graphGui);
+				String toLoad = JOptionPane.showInputDialog(this, "Enter name of the file to load");
+				GrapAlgo.init(toLoad);
+				graph gAlgotemp=GrapAlgo.copy();
+				GraphGUI g=new GraphGUI(gAlgotemp);
+				//repaint();
 
-					JOptionPane.showMessageDialog(this,"The graph loaded");	
-				}
-				else
-					JOptionPane.showMessageDialog(this,"CAN'T load, you have to create empty graph"
-							+ "and the load ,so try again :)");	
+				JOptionPane.showMessageDialog(this,"The graph loaded");	
+				//}
+				//else
+				//JOptionPane.showMessageDialog(this,"CAN'T load, you have to create empty graph"
+				//			+ "and the load ,so try again :)");	
 			}
 			catch (Exception FileNotFoundException) {
 				JOptionPane.showMessageDialog(this,"CAN'T load, Invalid file");	
@@ -209,17 +223,33 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 				JOptionPane.showMessageDialog(this,"The sortest path is : "+result.toString());
 			else
 				JOptionPane.showMessageDialog(this,"The graph ISN'T conected , NO path ");
-
 		}
 		else if(str.compareTo("TSP")==0)
 		{
 			initToAlgoGraph(this.graphGui);
-			
+			List<Integer> toTSP =new ArrayList<Integer>();
+			int iRun=1;
+			int stop=0;
+			while(stop!=1) {
+				String toTspIn = JOptionPane.showInputDialog(this, "Enter the "+iRun+" node to calculate "
+						+ "TSP");
+				toTSP.add(Integer.parseInt(toTspIn));
+				String toStop = JOptionPane.showInputDialog(this, "If you want to stop, press 1 here"
+						+ "if not enter 0");
+				stop=Integer.parseInt(toStop);
+				iRun++;
+			}
+			List<node_data> result=this.GrapAlgo.TSP(toTSP);
+			if(result!=null)
+				JOptionPane.showMessageDialog(this,"The sortest path is : "+result.toString());
+			else
+				JOptionPane.showMessageDialog(this,"The graph ISN'T conected , NO have a TSP path ");
 		}
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		addEdgePaintFromGiu();
 
 	}
 
@@ -229,7 +259,7 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 		double y = e.getY();
 		Point3D p = new Point3D(x,y);
 		addNodePaintFromGui(p);
-		addEdgePaintFromGiu();
+		//addEdgePaintFromGiu();
 		repaint();
 	}
 
@@ -241,7 +271,7 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 		this.graphGui.addNode(newVert);
 		newVert.setLocation(p);
 		idNodes++;
-		JOptionPane.showMessageDialog(this,"add vertex number: "+(idNodes-1));
+		JOptionPane.showMessageDialog(this,"Yoy just add the vertex number: "+(idNodes-1));
 		JOptionPane.showMessageDialog(this,"The coardinate is : "+p.ix()+" "+p.iy()+" ");
 	}
 
@@ -260,8 +290,6 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 		catch (Exception e) {
 			JOptionPane.showMessageDialog(this,"THE EDGE IS ALREDY IN ,ERROR");
 		}
-
-
 	}
 
 	/**

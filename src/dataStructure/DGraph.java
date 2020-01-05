@@ -60,8 +60,8 @@ public class DGraph implements graph{
 				edges.get(src).put(dest, newEdge);
 
 		}
-//		else 
-//			throw new RuntimeException();
+		//		else 
+		//			throw new RuntimeException();
 		//			System.out.println("Can't add the edge, it alredy contains\n"
 		//					+ "such edge with that src and that dest\n");
 	}
@@ -107,7 +107,7 @@ public class DGraph implements graph{
 						edges.get(i).remove(key);
 				}
 			}
-
+			this.edges.remove(key);
 			node_data removeNode=new NodeData(key);
 			//save all the data of the removed vertex in new vertex to return
 			removeNode.setLocation(this.vertesis.get(key).getLocation());
@@ -204,8 +204,13 @@ public class DGraph implements graph{
 			return false;//if it's null or not instance of graph the false
 		return true;//if it passed all the chacking and it's good so return true
 	}//end equal
-
-
+	/**
+	 * this nethos clean all the edges and the all the nodes at the graph
+	 */
+	public void cleanAll() {
+		this.edges.clear();
+		this.vertesis.clear();
+	}
 	//****************** Private Methods and Data *****************
 
 	static int modeCount=0;//static value to count hoe many times the graph was changed

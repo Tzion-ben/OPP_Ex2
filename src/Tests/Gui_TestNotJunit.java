@@ -59,10 +59,7 @@ public class Gui_TestNotJunit {
 		graphTest.connect(6, 0, 45);
 
 		graphTestEmpty=new DGraph();
-		//GraphGUI drawTest2=new GraphGUI(graphTestEmpty);
-//		drawHelp drawHelp=new drawHelp();
-//		Thread t1 = new Thread(drawHelp);
-//		t1.start();
+		
 		GraphGUI drawTest=new GraphGUI(graphTest);
 
 
