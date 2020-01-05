@@ -10,8 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.management.StringValueExp;
 import javax.swing.JFrame;
@@ -69,21 +71,26 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 		MenuBar menuBar = new MenuBar();
 		Menu sOl = new Menu("Save or Load");
 		Menu algo = new Menu("Algorithems");
+		Menu add = new Menu("Add");
 		MenuItem save = new MenuItem("Save the Graph");
 		MenuItem load = new MenuItem("Load the Graph");
 		MenuItem isConnected = new MenuItem("isConnected");
 		MenuItem shortestPathDist = new MenuItem("shortestPathDist");
 		MenuItem shortestPath = new MenuItem("shortestPath");
 		MenuItem TSP = new MenuItem("TSP");
+		MenuItem addEdge = new MenuItem("Add edge");
+
 
 		menuBar.add(sOl);
 		menuBar.add(algo);
+		menuBar.add(add);
 		this.setMenuBar(menuBar);
 		sOl.add(save);
 		sOl.add(load);
 
 		save.addActionListener(this);
 		load.addActionListener(this);
+		addEdge.addActionListener(this);
 		isConnected.addActionListener(this);
 		shortestPathDist.addActionListener(this);
 		shortestPath.addActionListener(this);
@@ -93,6 +100,8 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 		algo.add(shortestPathDist);
 		algo.add(shortestPath);
 		algo.add(TSP);
+
+		add.add(addEdge);
 		this.addMouseListener(this);
 	}
 
@@ -115,17 +124,16 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 			if(vertices.size()>1) {
 				Collection<edge_data> edgesOfNodeId= this.graphGui.getE(tempVert.getKey());
 				Iterator<edge_data> edge=edgesOfNodeId.iterator();
-
 				while(edge.hasNext()) {
 					edge_data tempEdge=edge.next();
-					g.setColor(Color.DARK_GRAY);
+					g.setColor(Color.BLUE);
 					g.drawLine(tempVert.getLocation().ix(), tempVert.getLocation().iy(),
 							this.graphGui.getNode(tempEdge.getDest()).getLocation().ix(),
 							this.graphGui.getNode(tempEdge.getDest()).getLocation().iy());
 					g.setColor(Color.GREEN);
 					String wEdge= String.valueOf(tempEdge.getWeight());
 					g.drawString(wEdge, this.graphGui.getNode(tempEdge.getDest()).getLocation().ix()-30,
-							this.graphGui.getNode(tempEdge.getDest()).getLocation().iy());
+							this.graphGui.getNode(tempEdge.getDest()).getLocation().iy()-30);
 				}
 			}
 		}
@@ -137,7 +145,10 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 	{
 		String str = e.getActionCommand();
 
-		if(str.compareTo("Save the Graph")==0)
+		if(str.compareTo("Add edge")==0) {
+			addEdgePaintFromGiu();
+		}
+		else if(str.compareTo("Save the Graph")==0)
 		{
 			initToAlgoGraph(this.graphGui);
 			GrapAlgo.save("New Graph");
@@ -178,20 +189,32 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 		else if(str.compareTo("shortestPathDist")==0)
 		{
 			initToAlgoGraph(this.graphGui);
+			String srcId = JOptionPane.showInputDialog(this, "Enter source of the edge");
+			String destId = JOptionPane.showInputDialog(this, "Enter destination of the edge");
+			int src=Integer.parseInt(srcId);
+			int dest=Integer.parseInt(destId);
+			double result=this.GrapAlgo.shortestPathDist(src, dest);
+			JOptionPane.showMessageDialog(this,"The sortest path distence is : "+result);
+		}//end shortestPathDist
 
-			System.out.println("shortestPathDist");
-		}
 		else if(str.compareTo("shortestPath")==0)
 		{
 			initToAlgoGraph(this.graphGui);
-			//double path=this.GrapAlgo.shortestPath(src, dest);
-			System.out.println("shortestPath");
+			String srcId = JOptionPane.showInputDialog(this, "Enter source of the edge");
+			String destId = JOptionPane.showInputDialog(this, "Enter destination of the edge");
+			int src=Integer.parseInt(srcId);
+			int dest=Integer.parseInt(destId);
+			List<node_data> result=this.GrapAlgo.shortestPath(src, dest);
+			if(result!=null)
+				JOptionPane.showMessageDialog(this,"The sortest path is : "+result.toString());
+			else
+				JOptionPane.showMessageDialog(this,"The graph ISN'T conected , NO path ");
+
 		}
 		else if(str.compareTo("TSP")==0)
 		{
 			initToAlgoGraph(this.graphGui);
-
-			System.out.println("TSP");
+			
 		}
 	}
 
@@ -232,6 +255,7 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 			String edgeEeight = JOptionPane.showInputDialog(this, "Enter the weight of the edge");
 			this.graphGui.connect(Integer.parseInt(srcId), Integer.parseInt(destId),
 					Double.parseDouble(edgeEeight));
+			repaint();
 		}
 		catch (Exception e) {
 			JOptionPane.showMessageDialog(this,"THE EDGE IS ALREDY IN ,ERROR");

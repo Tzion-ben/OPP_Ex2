@@ -161,6 +161,7 @@ class Graph_AlgoTest {
 		actual.add(node180);
 		actual.add(node9);
 		assertEquals(expected, actual);
+		System.out.println(actual.toString());
 
 	}
 

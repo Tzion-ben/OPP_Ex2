@@ -75,6 +75,17 @@ public class NodeData implements node_data {
 			return false;//if it's null or not instance of node_data the false
 		return true;//if it passed all the chacking and it's good so return true
 	}//end equal
+	
+	
+	/**
+	 * this method returns a string with the id of the vertex
+	 */
+	@Override
+	public String toString() {
+		String ans="";
+		ans+=String.valueOf(this.id);
+		return ans;
+	}
 
 	//****************** Private Methods and Data *****************
 
