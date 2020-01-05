@@ -19,15 +19,6 @@ class Graph_AlgoTest {
 
 	private static DGraph graphTestToGraphAlgo;
 	private static Graph_Algo graphAlgoTest=new Graph_Algo(graphTestToGraphAlgo);
-	//	private static NodeData node0=new NodeData(0);
-	//	private static NodeData node1=new NodeData(1);
-	//	private static NodeData node17=new NodeData(17);
-	//	private static NodeData node3=new NodeData(3);
-	//	private static NodeData node8=new NodeData(8);
-	//	private static NodeData node51=new NodeData(51);
-	//	private static NodeData node9=new NodeData(9);
-	//	private static NodeData node5=new NodeData(5);
-	//	private static NodeData node6=new NodeData(6);
 
 	private static NodeData node2=new NodeData(2);
 	private static NodeData node1=new NodeData(1);
@@ -66,13 +57,14 @@ class Graph_AlgoTest {
 		graphTestToGraphAlgo.connect(1, 10, 78);
 		graphTestToGraphAlgo.connect(10, 1, 94);
 		graphTestToGraphAlgo.connect(1, 3, 63);
-		graphTestToGraphAlgo.connect(3, 1, 2);
+		graphTestToGraphAlgo.connect(3, 1, 20);
 		graphTestToGraphAlgo.connect(17, 180, 19);
 		graphTestToGraphAlgo.connect(180, 17, 45);
 		graphTestToGraphAlgo.connect(180, 9, 52);
 		graphTestToGraphAlgo.connect(9, 180, 100);
 		graphTestToGraphAlgo.connect(17, 15, 190);
 		graphTestToGraphAlgo.connect(15, 17, 96);
+		
 	}
 
 	@Test
@@ -120,7 +112,7 @@ class Graph_AlgoTest {
 	void testShortestPathDist() {
 		graphAlgoTest.init(graphTestToGraphAlgo);
 
-		double expected=6;
+		double expected=4;
 		double notExpected=8;
 		double actual=graphAlgoTest.shortestPathDist(2, 18);
 		assertEquals(expected, actual);
@@ -129,11 +121,18 @@ class Graph_AlgoTest {
 
 	@Test
 	void testShortestPath() {
+		graphTestToGraphAlgo.connect(17, 18, 1);
+		graphTestToGraphAlgo.connect(18, 17, 3);
+		graphTestToGraphAlgo.connect(3, 10, 1);
+		graphTestToGraphAlgo.connect(10, 3, 3);
+		graphTestToGraphAlgo.connect(10, 17, 1);
+		graphTestToGraphAlgo.connect(17, 10, 3);
 		List<node_data> sgPath =graphAlgoTest.shortestPath(2, 18);
 		ArrayList<node_data> expected=new ArrayList<node_data>();
 		expected.add(node2);
 		expected.add(node3);
-		expected.add(node1);
+		expected.add(node10);
+		expected.add(node17);
 		expected.add(node18);
 		assertEquals(expected, sgPath);
 	}
