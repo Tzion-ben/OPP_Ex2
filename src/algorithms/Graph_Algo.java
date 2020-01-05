@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.management.StringValueExp;
+import javax.management.RuntimeErrorException;
 
 import dataStructure.DGraph;
 import dataStructure.NodeData;
@@ -17,6 +17,7 @@ import dataStructure.edgeData;
 import dataStructure.edge_data;
 import dataStructure.graph;
 import dataStructure.node_data;
+import utils.*;
 /**
  * This empty class represents the set of graph-theory algorithms
  * which should be implemented as part of Ex2 - Do edit this class.
@@ -52,12 +53,26 @@ public class Graph_Algo implements graph_algorithms{
 					int src=Integer.parseInt(edgesVertesis[0]);
 					int dest=Integer.parseInt(edgesVertesis[1]);
 					int weigth=Integer.parseInt(edgesVertesis[2]);
+					double xLocaSrc=Double.parseDouble(edgesVertesis[3]);
+					double yLocaSrc=Double.parseDouble(edgesVertesis[4]);
+					double xLocaDest=Double.parseDouble(edgesVertesis[5]);
+					double yLocaDest=Double.parseDouble(edgesVertesis[6]);
+					Point3D pSrc=new Point3D(xLocaSrc, yLocaSrc);
+					Point3D pDest=new Point3D(xLocaDest, yLocaDest);
+
 					//read the src to 0 place at the array, and the dest to 1 place 
 					//of the array and the weigth at the place 2 of the array
+					try {
 					node_data addSrc=new NodeData(src);
+					addSrc.setLocation(pSrc);
 					graphHelp.addNode(addSrc);
 					node_data addDest=new NodeData(dest);
+					addDest.setLocation(pDest);
 					graphHelp.addNode(addDest);					
+					}
+					catch (Exception e) {
+						
+					}
 					graphHelp.connect(src, dest, weigth);
 
 				}
@@ -68,13 +83,14 @@ public class Graph_Algo implements graph_algorithms{
 					i++;
 				}
 			}
+			init(graphHelp);
 		} 
 		catch (IOException e) 
 		{
-			e.printStackTrace();
-			System.out.println("could not read file");
+			throw new RuntimeErrorException(null);
+			//System.out.println("could not read file");
 		}
-		init(graphHelp);
+		
 	}
 
 	@Override
@@ -223,10 +239,20 @@ public class Graph_Algo implements graph_algorithms{
 	public graph copy() {
 		DGraph graphToCopy=new DGraph(); 
 		Collection<node_data> vertices= this.grafAlgo.getV();
+		Iterator<node_data> vertLocations=vertices.iterator();
+		
+		ArrayList<Point3D> allPoint=new ArrayList<Point3D>();
+		while(vertLocations.hasNext()) 
+			allPoint.add(vertLocations.next().getLocation());
+		
 		Iterator<node_data> vert=vertices.iterator();
+		int runLocations=0;
 		while(vert.hasNext()) {
 			//1. create a vertex 
 			node_data tempVertex=new NodeData(vert.next().getKey());
+			Point3D p=new Point3D(allPoint.get(runLocations));
+			runLocations++;
+			tempVertex.setLocation(p);
 			graphToCopy.addNode(tempVertex);
 			//2. create the all edgaes for that specific vertex
 			Collection<edge_data> edgesOfNode= this.grafAlgo.getE(tempVertex.getKey());

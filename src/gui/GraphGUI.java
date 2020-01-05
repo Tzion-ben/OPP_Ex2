@@ -34,6 +34,7 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 
 	private void initGUIGraph(graph g) 
 	{
+
 		if(g==null) {//draw a empty graph
 			setVisible(true);
 			this.setSize(1000, 700);
@@ -131,33 +132,53 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 	}
 
 
-
-
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
 		String str = e.getActionCommand();
 
-		System.out.println(str);
 		if(str.compareTo("Save the Graph")==0)
 		{
-			System.out.println("Save the Graph IN !!");
+			initToAlgoGraph(this.graphGui);
+			GrapAlgo.save("New Graph");
+			JOptionPane.showMessageDialog(this,"The graph was saved at the project folder");
 		}
 		else if(str.compareTo("Load the Graph")==0)
 		{
-			System.out.println("Load the Graph IN !!");
+			try {
+				if(this.graphGui.edgeSize()==0&&this.graphGui.nodeSize()==0) {
+					initToAlgoGraph(this.graphGui);
+					String toLoad = JOptionPane.showInputDialog(this, "Enter name of the file to load");
+					GrapAlgo.init(toLoad);
+					graph gAlgotemp=GrapAlgo.copy();
+					GraphGUI g=new GraphGUI(gAlgotemp);
+					//repaint();
+
+					JOptionPane.showMessageDialog(this,"The graph loaded");	
+				}
+				else
+					JOptionPane.showMessageDialog(this,"CAN'T load, you have to create empty graph"
+							+ "and the load ,so try again :)");	
+			}
+			catch (Exception FileNotFoundException) {
+				JOptionPane.showMessageDialog(this,"CAN'T load, Invalid file");	
+			}
 		}
 
-		else if(str.compareTo("isonnected")==0)
+		else if(str.compareTo("isConnected")==0)
 		{
-			System.out.println("123");
 			initToAlgoGraph(this.graphGui);
-			boolean con=this.GrapAlgo.isConnected();
-			System.out.println("connected ?: "+con);
-		}
+			boolean isCon=this.GrapAlgo.isConnected();
+			if(isCon)
+				JOptionPane.showMessageDialog(this,"The graph is connected");
+			else
+				JOptionPane.showMessageDialog(this,"The graph ISN'T connected");
+		}//end isConnected
+
 		else if(str.compareTo("shortestPathDist")==0)
 		{
 			initToAlgoGraph(this.graphGui);
+
 			System.out.println("shortestPathDist");
 		}
 		else if(str.compareTo("shortestPath")==0)
@@ -169,16 +190,14 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 		else if(str.compareTo("TSP")==0)
 		{
 			initToAlgoGraph(this.graphGui);
-			boolean con=this.GrapAlgo.isConnected();
+
 			System.out.println("TSP");
 		}
-		System.out.println(str);
-
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		addEdgePaintFromGiu();
+
 	}
 
 	@Override
@@ -187,8 +206,7 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 		double y = e.getY();
 		Point3D p = new Point3D(x,y);
 		addNodePaintFromGui(p);
-		repaint();
-		//addEdgePaintFromGiu();
+		addEdgePaintFromGiu();
 		repaint();
 	}
 
@@ -200,10 +218,9 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 		this.graphGui.addNode(newVert);
 		newVert.setLocation(p);
 		idNodes++;
-		System.out.println("add vertex number: "+idNodes);
-		System.out.println("The coardinate is : "+p.ix()+" "+p.iy()+" ");
+		JOptionPane.showMessageDialog(this,"add vertex number: "+(idNodes-1));
+		JOptionPane.showMessageDialog(this,"The coardinate is : "+p.ix()+" "+p.iy()+" ");
 	}
-
 
 	/**
 	 * this method add vertex to the canvas
@@ -215,11 +232,10 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 			String edgeEeight = JOptionPane.showInputDialog(this, "Enter the weight of the edge");
 			this.graphGui.connect(Integer.parseInt(srcId), Integer.parseInt(destId),
 					Double.parseDouble(edgeEeight));
-			repaint();
 		}
 		catch (Exception e) {
 			JOptionPane.showMessageDialog(this,"THE EDGE IS ALREDY IN ,ERROR");
-			}
+		}
 
 
 	}
@@ -236,7 +252,7 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 			Point3D pVertOld=new Point3D(tempVert.getLocation().ix(), tempVert.getLocation().iy());
 			Point3D pVertNew=new Point3D(tempVert.getLocation().ix(), tempVert.getLocation().iy());
 			if(pVertOld.ix()<11||pVertOld.iy()<61) {
-				//based on the logicaky that the courdinate cant be less then zero
+				//based on the logic that the courdinate cant be less then zero
 				if(pVertOld.ix()<11&&pVertOld.iy()<61) 	
 					pVertNew. add(10, 61-pVertOld.iy(), 0);
 				else if(pVertOld.ix()<11)
@@ -277,7 +293,7 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 	 */
 	public GraphGUI(graph g) {
 		this.graphGui=g;
-		initGUIGraph(graphGui);
+		initGUIGraph(this.graphGui);
 	}
 
 	/**

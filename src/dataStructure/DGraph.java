@@ -53,16 +53,15 @@ public class DGraph implements graph{
 	 */
 	@Override
 	public void connect(int src, int dest, double w) {
-		if(this.vertesis.containsKey(src)&&this.vertesis.containsKey(dest)) {
+		if(this.vertesis.containsKey(src)) {
 			modeCount++;
 			edgeData newEdge=new edgeData(src, dest, w);
 			if(!edges.get(src).containsKey(dest))
 				edges.get(src).put(dest, newEdge);
-			else
-				throw new RuntimeException();
+
 		}
-		else 
-			throw new RuntimeException();
+//		else 
+//			throw new RuntimeException();
 		//			System.out.println("Can't add the edge, it alredy contains\n"
 		//					+ "such edge with that src and that dest\n");
 	}
