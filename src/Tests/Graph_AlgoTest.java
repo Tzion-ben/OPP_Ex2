@@ -21,16 +21,16 @@ class Graph_AlgoTest {
 
 	private static DGraph graphTestToGraphAlgo;
 	private static Graph_Algo graphAlgoTest=new Graph_Algo(graphTestToGraphAlgo);
-//	private static NodeData node0=new NodeData(0);
-//	private static NodeData node1=new NodeData(1);
-//	private static NodeData node17=new NodeData(17);
-//	private static NodeData node3=new NodeData(3);
-//	private static NodeData node8=new NodeData(8);
-//	private static NodeData node51=new NodeData(51);
-//	private static NodeData node9=new NodeData(9);
-//	private static NodeData node5=new NodeData(5);
-//	private static NodeData node6=new NodeData(6);
-	
+	//	private static NodeData node0=new NodeData(0);
+	//	private static NodeData node1=new NodeData(1);
+	//	private static NodeData node17=new NodeData(17);
+	//	private static NodeData node3=new NodeData(3);
+	//	private static NodeData node8=new NodeData(8);
+	//	private static NodeData node51=new NodeData(51);
+	//	private static NodeData node9=new NodeData(9);
+	//	private static NodeData node5=new NodeData(5);
+	//	private static NodeData node6=new NodeData(6);
+
 	private static NodeData node2=new NodeData(2);
 	private static NodeData node1=new NodeData(1);
 	private static NodeData node18=new NodeData(18);
@@ -43,18 +43,18 @@ class Graph_AlgoTest {
 
 	@BeforeAll
 	public static void beforeall() {
-//		graphTestToGraphAlgo=new DGraph();
-//		graphTestToGraphAlgo.addNode(node0);
-//		graphTestToGraphAlgo.addNode(node1);
-//		//graphTestToGraphAlgo.addNode(node2);
-//		graphTestToGraphAlgo.addNode(node3);
-//		graphTestToGraphAlgo.addNode(node8);
-//		graphTestToGraphAlgo.addNode(node51);
-//		graphTestToGraphAlgo.addNode(node9);
-//		graphTestToGraphAlgo.addNode(node5);
-//		graphTestToGraphAlgo.addNode(node6);
-//		graphTestToGraphAlgo.addNode(node17);
-		
+		//		graphTestToGraphAlgo=new DGraph();
+		//		graphTestToGraphAlgo.addNode(node0);
+		//		graphTestToGraphAlgo.addNode(node1);
+		//		//graphTestToGraphAlgo.addNode(node2);
+		//		graphTestToGraphAlgo.addNode(node3);
+		//		graphTestToGraphAlgo.addNode(node8);
+		//		graphTestToGraphAlgo.addNode(node51);
+		//		graphTestToGraphAlgo.addNode(node9);
+		//		graphTestToGraphAlgo.addNode(node5);
+		//		graphTestToGraphAlgo.addNode(node6);
+		//		graphTestToGraphAlgo.addNode(node17);
+
 		graphTestToGraphAlgo=new DGraph();
 		graphTestToGraphAlgo.addNode(node2);
 		graphTestToGraphAlgo.addNode(node1);
@@ -92,13 +92,6 @@ class Graph_AlgoTest {
 	}
 
 	@Test
-	void testInitGraph() {
-		Graph_Algo graphAlgoTestInit=new Graph_Algo(graphTestToGraphAlgo);
-		graphAlgoTestInit.init(graphTestToGraphAlgo);
-		assertEquals(graphAlgoTest, graphAlgoTestInit);
-	}
-
-	@Test
 	void testInitString() {
 		try {
 			graphAlgoTest.init("graph.csv");
@@ -111,7 +104,10 @@ class Graph_AlgoTest {
 
 	@Test
 	void testSave() {
-		fail("Not yet implemented");
+		DGraph graphTestToSave=new DGraph();
+		Graph_Algo graphAlgoTestSave=new Graph_Algo(graphTestToSave);
+		graphAlgoTestSave.init("graph2.csv");
+		graphAlgoTestSave.save("outputGraph.csv");
 	}
 
 	@Test
@@ -133,7 +129,7 @@ class Graph_AlgoTest {
 		//the second is connect so have to be true
 		if(!isCon2)
 			fail();
-		
+
 		node_data notCon=new NodeData(400);
 		graphTestToGraphAlgo.addNode(notCon);
 		graphAlgoTest.init(graphTestToGraphAlgo);
@@ -141,8 +137,8 @@ class Graph_AlgoTest {
 		//the second is connect so have to be true
 		if(isCon3)
 			fail();
-		
-		
+
+
 		//remove the not gor vertex
 		node_data returnNode=graphTestToGraphAlgo.removeNode(400);
 		assertEquals(notCon, returnNode);
@@ -150,62 +146,62 @@ class Graph_AlgoTest {
 
 	@Test
 	void testShortestPathDist() {
-//		graphTestToGraphAlgo.connect(0, 1, 1);
-//		graphTestToGraphAlgo.connect(1, 0, 1);
-//		graphTestToGraphAlgo.connect(1, 3, 2.9);
-//		graphTestToGraphAlgo.connect(3, 1, 3);
-//		graphTestToGraphAlgo.connect(3, 8, 9);
-//		graphTestToGraphAlgo.connect(8, 3, 7);
-//		graphTestToGraphAlgo.connect(8, 0, 5);
-//		graphTestToGraphAlgo.connect(0, 8, 15);
-//		graphTestToGraphAlgo.connect(51, 0, 29);
-//		graphTestToGraphAlgo.connect(0, 51, 38);
-//
-//		graphTestToGraphAlgo.connect(9, 3, 38);
-//		graphTestToGraphAlgo.connect(5, 3, 800);
-//		//graphTestToGraphAlgo.connect(6, 3, 10);
-//		graphTestToGraphAlgo.connect(0, 6, 38);
-//		graphTestToGraphAlgo.connect(6, 5, 59);
-//		graphTestToGraphAlgo.connect(3, 9, 38);
-//		graphTestToGraphAlgo.connect(6, 17, 100);
-//		graphTestToGraphAlgo.connect(17, 3, 2);
-//		graphTestToGraphAlgo.connect(6, 0, 1);
-//		graphAlgoTest.init(graphTestToGraphAlgo);
-//		
-//		double expected=4.9;
-//		double actual=graphAlgoTest.shortestPathDist(6, 3);
-//		assertEquals(expected, actual);
-		
+		//		graphTestToGraphAlgo.connect(0, 1, 1);
+		//		graphTestToGraphAlgo.connect(1, 0, 1);
+		//		graphTestToGraphAlgo.connect(1, 3, 2.9);
+		//		graphTestToGraphAlgo.connect(3, 1, 3);
+		//		graphTestToGraphAlgo.connect(3, 8, 9);
+		//		graphTestToGraphAlgo.connect(8, 3, 7);
+		//		graphTestToGraphAlgo.connect(8, 0, 5);
+		//		graphTestToGraphAlgo.connect(0, 8, 15);
+		//		graphTestToGraphAlgo.connect(51, 0, 29);
+		//		graphTestToGraphAlgo.connect(0, 51, 38);
+		//
+		//		graphTestToGraphAlgo.connect(9, 3, 38);
+		//		graphTestToGraphAlgo.connect(5, 3, 800);
+		//		//graphTestToGraphAlgo.connect(6, 3, 10);
+		//		graphTestToGraphAlgo.connect(0, 6, 38);
+		//		graphTestToGraphAlgo.connect(6, 5, 59);
+		//		graphTestToGraphAlgo.connect(3, 9, 38);
+		//		graphTestToGraphAlgo.connect(6, 17, 100);
+		//		graphTestToGraphAlgo.connect(17, 3, 2);
+		//		graphTestToGraphAlgo.connect(6, 0, 1);
+		//		graphAlgoTest.init(graphTestToGraphAlgo);
+		//		
+		//		double expected=4.9;
+		//		double actual=graphAlgoTest.shortestPathDist(6, 3);
+		//		assertEquals(expected, actual);
+
 	}
 
 	@Test
 	void testShortestPath() {
-//		graphTestToGraphAlgo.connect(0, 1, 1);
-//		graphTestToGraphAlgo.connect(1, 0, 1);
-//		graphTestToGraphAlgo.connect(1, 3, 2.9);
-//		graphTestToGraphAlgo.connect(3, 1, 3);
-//		graphTestToGraphAlgo.connect(3, 8, 9);
-//		graphTestToGraphAlgo.connect(8, 3, 7);
-//		graphTestToGraphAlgo.connect(8, 0, 5);
-//		graphTestToGraphAlgo.connect(0, 8, 15);
-//		graphTestToGraphAlgo.connect(51, 0, 29);
-//		graphTestToGraphAlgo.connect(0, 51, 38);
-//
-//		graphTestToGraphAlgo.connect(9, 3, 38);
-//		graphTestToGraphAlgo.connect(5, 3, 800);
-//		//graphTestToGraphAlgo.connect(6, 3, 10);
-//		graphTestToGraphAlgo.connect(0, 6, 38);
-//		graphTestToGraphAlgo.connect(6, 5, 59);
-//		graphTestToGraphAlgo.connect(3, 9, 38);
-//		graphTestToGraphAlgo.connect(6, 17, 100);
-//		graphTestToGraphAlgo.connect(17, 3, 2);
-//		graphTestToGraphAlgo.connect(6, 0, 1);
-//		graphAlgoTest.init(graphTestToGraphAlgo);
-//
-//		boolean falg=graphAlgoTest.isConnected();
-//		List<node_data> sgPath =graphAlgoTest.shortestPath(6, 3);
-//		
-	
+		//		graphTestToGraphAlgo.connect(0, 1, 1);
+		//		graphTestToGraphAlgo.connect(1, 0, 1);
+		//		graphTestToGraphAlgo.connect(1, 3, 2.9);
+		//		graphTestToGraphAlgo.connect(3, 1, 3);
+		//		graphTestToGraphAlgo.connect(3, 8, 9);
+		//		graphTestToGraphAlgo.connect(8, 3, 7);
+		//		graphTestToGraphAlgo.connect(8, 0, 5);
+		//		graphTestToGraphAlgo.connect(0, 8, 15);
+		//		graphTestToGraphAlgo.connect(51, 0, 29);
+		//		graphTestToGraphAlgo.connect(0, 51, 38);
+		//
+		//		graphTestToGraphAlgo.connect(9, 3, 38);
+		//		graphTestToGraphAlgo.connect(5, 3, 800);
+		//		//graphTestToGraphAlgo.connect(6, 3, 10);
+		//		graphTestToGraphAlgo.connect(0, 6, 38);
+		//		graphTestToGraphAlgo.connect(6, 5, 59);
+		//		graphTestToGraphAlgo.connect(3, 9, 38);
+		//		graphTestToGraphAlgo.connect(6, 17, 100);
+		//		graphTestToGraphAlgo.connect(17, 3, 2);
+		//		graphTestToGraphAlgo.connect(6, 0, 1);
+		//		graphAlgoTest.init(graphTestToGraphAlgo);
+		//
+		//		boolean falg=graphAlgoTest.isConnected();
+		//		List<node_data> sgPath =graphAlgoTest.shortestPath(6, 3);
+		//		
+
 	}
 
 	@Test
@@ -229,7 +225,7 @@ class Graph_AlgoTest {
 		actual.add(node180);
 		actual.add(node9);
 		assertEquals(expected, actual);
-		
+
 	}
 
 	@Test

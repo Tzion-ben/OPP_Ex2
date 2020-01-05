@@ -61,7 +61,6 @@ class Ex2Test {
 	boolean drawGraph(graph g) { 
 		GraphGUI drawTest=new GraphGUI(g);	
 		return true;
-		
 	}
 
 }

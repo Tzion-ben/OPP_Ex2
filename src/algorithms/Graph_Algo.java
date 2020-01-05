@@ -1,8 +1,11 @@
 package algorithms;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -63,15 +66,15 @@ public class Graph_Algo implements graph_algorithms{
 					//read the src to 0 place at the array, and the dest to 1 place 
 					//of the array and the weigth at the place 2 of the array
 					try {
-					node_data addSrc=new NodeData(src);
-					addSrc.setLocation(pSrc);
-					graphHelp.addNode(addSrc);
-					node_data addDest=new NodeData(dest);
-					addDest.setLocation(pDest);
-					graphHelp.addNode(addDest);					
+						node_data addSrc=new NodeData(src);
+						addSrc.setLocation(pSrc);
+						graphHelp.addNode(addSrc);
+						node_data addDest=new NodeData(dest);
+						addDest.setLocation(pDest);
+						graphHelp.addNode(addDest);					
 					}
 					catch (Exception e) {
-						
+
 					}
 					graphHelp.connect(src, dest, weigth);
 
@@ -90,13 +93,80 @@ public class Graph_Algo implements graph_algorithms{
 			throw new RuntimeErrorException(null);
 			//System.out.println("could not read file");
 		}
-		
+
 	}
 
+	/**
+	 * this method is saving the graph 
+	 */
 	@Override
 	public void save(String file_name) {
-		// TODO Auto-generated method stub
+		try 
+		{
+			PrintWriter printGraph = new PrintWriter(new File(file_name));
+			//at the first line will be the name of the colons
+			StringBuilder sbGraphFLine = new StringBuilder();
+			sbGraphFLine.append("source");
+			sbGraphFLine.append(",");
+			sbGraphFLine.append("distention");
+			sbGraphFLine.append(",");
+			sbGraphFLine.append("weigth");
+			sbGraphFLine.append(",");
+			sbGraphFLine.append("x-src-Location");
+			sbGraphFLine.append(",");
+			sbGraphFLine.append("y-src-Location");
+			sbGraphFLine.append(",");
+			sbGraphFLine.append("x-dest-Location");
+			sbGraphFLine.append(",");
+			sbGraphFLine.append("y-dest-Location");
+			sbGraphFLine.append("\n");
+			printGraph.write(sbGraphFLine.toString());
+			//end first line
+			//fill the file with tha edges locations and so on
+			Collection<node_data> vertices= this.grafAlgo.getV();
+			Iterator<node_data> vert=vertices.iterator();
+			while(vert.hasNext()) {
+				node_data tempVertex=vert.next();
+				StringBuilder sbGraph = new StringBuilder();
+				Collection<edge_data> edgesOfNode= this.grafAlgo.getE(tempVertex.getKey());
+				Iterator<edge_data> edge=edgesOfNode.iterator();
+				while(edge.hasNext()) {
+					edge_data tempEdge=edge.next();
 
+					String nSrc=String.valueOf(tempEdge.getSrc());
+					String nDest=String.valueOf( tempEdge.getDest());
+					String weigthEdge=String.valueOf( tempEdge.getWeight());
+					String locationXsrc=String.valueOf(this.grafAlgo.getNode(tempEdge.getSrc()).getLocation().x());
+					String locationYsrc=String.valueOf(this.grafAlgo.getNode(tempEdge.getSrc()).getLocation().y());
+					String locationXdest=String.valueOf(this.grafAlgo.getNode(tempEdge.getDest()).getLocation().x());
+					String locationYdest=String.valueOf(this.grafAlgo.getNode(tempEdge.getDest()).getLocation().y());
+
+					sbGraph.append(nSrc);
+					sbGraph.append(",");
+					sbGraph.append(nDest);
+					sbGraph.append(",");
+					sbGraph.append(weigthEdge);
+					sbGraph.append(",");
+					sbGraph.append(locationXsrc);
+					sbGraph.append(",");
+					sbGraph.append(locationYsrc);
+					sbGraph.append(",");
+					sbGraph.append(locationXdest);
+					sbGraph.append(",");
+					sbGraph.append(locationYdest);
+					sbGraph.append("\n");
+
+					printGraph.write(sbGraph.toString());
+
+				} 
+			}
+			printGraph.close();
+		}
+		catch (FileNotFoundException e) 
+		{
+			e.printStackTrace();
+			return;
+		}
 	}
 	/**
 	 * this method is checking if the directional graph is connect or not by
@@ -159,7 +229,7 @@ public class Graph_Algo implements graph_algorithms{
 		infinityAllWeight();
 		setsAllInfo();
 		if(this.grafAlgo.getNode(src)!=null) {
-			//thet if is checking if the hashMap of the vertices is not empty and
+			//that if is checking if the hashMap of the vertices is not empty and
 			//contains the vertex with the id of src 
 			this.grafAlgo.getNode(src).setWeight(0);
 			DFSRecForWeight(this.grafAlgo.getNode(src),dest,this.grafAlgo);
@@ -240,11 +310,11 @@ public class Graph_Algo implements graph_algorithms{
 		DGraph graphToCopy=new DGraph(); 
 		Collection<node_data> vertices= this.grafAlgo.getV();
 		Iterator<node_data> vertLocations=vertices.iterator();
-		
+
 		ArrayList<Point3D> allPoint=new ArrayList<Point3D>();
 		while(vertLocations.hasNext()) 
 			allPoint.add(vertLocations.next().getLocation());
-		
+
 		Iterator<node_data> vert=vertices.iterator();
 		int runLocations=0;
 		while(vert.hasNext()) {
