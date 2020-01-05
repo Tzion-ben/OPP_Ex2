@@ -308,21 +308,47 @@ public class Graph_Algo implements graph_algorithms{
 	@Override
 	public graph copy() {
 		DGraph graphToCopy=new DGraph(); 
+		zeroAllTags();
 		Collection<node_data> vertices= this.grafAlgo.getV();
+		
 		Iterator<node_data> vertLocations=vertices.iterator();
-
 		ArrayList<Point3D> allPoint=new ArrayList<Point3D>();
 		while(vertLocations.hasNext()) 
 			allPoint.add(vertLocations.next().getLocation());
 
+		Iterator<node_data> vertInfo=vertices.iterator();
+		ArrayList<String> allInfo=new ArrayList<String>();
+		while(vertInfo.hasNext()) 
+			allInfo.add(vertInfo.next().getInfo());
+		
+		Iterator<node_data> vertW=vertices.iterator();
+		ArrayList<Double> allW=new ArrayList<Double>();
+		while(vertW.hasNext()) 
+			allW.add(vertW.next().getWeight());
+		
 		Iterator<node_data> vert=vertices.iterator();
 		int runLocations=0;
+		int runLInfo=0;
+		int runW=0;
+
 		while(vert.hasNext()) {
 			//1. create a vertex 
 			node_data tempVertex=new NodeData(vert.next().getKey());
-			Point3D p=new Point3D(allPoint.get(runLocations));
-			runLocations++;
-			tempVertex.setLocation(p);
+			if(allPoint.get(runLocations)!=null) {
+				Point3D p=new Point3D(allPoint.get(runLocations));
+				runLocations++;
+				tempVertex.setLocation(p);
+			}
+			if(allInfo.get(runLInfo)!=null) {
+				String s=allInfo.get(runLInfo);
+				runLInfo++;
+				tempVertex.setInfo(s);
+			}
+			if(allW.get(runW)!=null) {
+				double wTemp=allW.get(runW);
+				runW++;
+				tempVertex.setWeight(wTemp);
+			}
 			graphToCopy.addNode(tempVertex);
 			//2. create the all edgaes for that specific vertex
 			Collection<edge_data> edgesOfNode= this.grafAlgo.getE(tempVertex.getKey());

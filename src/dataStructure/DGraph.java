@@ -96,9 +96,7 @@ public class DGraph implements graph{
 	@Override
 	public node_data removeNode(int key) {
 		if(this.vertesis.containsKey(key)) {//iff a such vertex is exists remove it
-			modeCount++;
-			//this.edges.remove(key);//removing all the edges that goes from the
-			//specific vertex
+			modeCount++;			
 			int edgesSize=edges.size();
 			for(int i=0;i<edgesSize;i++) {//O(n), |v|=n
 				node_data temp=this.vertesis.get(key);
@@ -107,7 +105,8 @@ public class DGraph implements graph{
 						edges.get(i).remove(key);
 				}
 			}
-			this.edges.remove(key);
+			this.edges.remove(key);//removing all the edges that goes from the
+			//specific vertex
 			node_data removeNode=new NodeData(key);
 			//save all the data of the removed vertex in new vertex to return
 			removeNode.setLocation(this.vertesis.get(key).getLocation());
@@ -181,7 +180,8 @@ public class DGraph implements graph{
 			while(vertN.hasNext()||vertT.hasNext()) {
 				if(vertN.hasNext()&&vertT.hasNext()) {
 					NodeData tempN=(NodeData) vertN.next();
-					if(!tempN.equals(vertT.next()))
+					NodeData tempT=(NodeData) vertT.next();
+					if(!tempN.equals(tempT))
 						return false;
 
 					Collection<edge_data>edge= n.getE(tempN.getKey());

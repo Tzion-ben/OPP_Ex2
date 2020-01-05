@@ -208,7 +208,7 @@ class DGraphTest {
 		assertNotEquals(graphTest, graphTestCopy);
 		
 		//remove the differers
-		graphTestCopy.removeNode(6);
+		node_data re=graphTestCopy.removeNode(6);
 		//end remove
 		assertEquals(graphTest, graphTestCopy);
 	}

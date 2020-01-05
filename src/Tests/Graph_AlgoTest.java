@@ -165,9 +165,9 @@ class Graph_AlgoTest {
 
 	@Test
 	void testCopy() {
+		DGraph temp =graphTestToGraphAlgo;
 		graphAlgoTest.init(graphTestToGraphAlgo);
-		graph graphCopy=new DGraph();
-		graphCopy=(DGraph)graphAlgoTest.copy();
+		graph graphCopy=graphAlgoTest.copy();
 		assertEquals(graphTestToGraphAlgo, graphCopy);
 
 		//change the copy graph that not have to change the original graph

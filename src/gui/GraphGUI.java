@@ -48,7 +48,7 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 			checkNodeCount();
 			addMenu();
 		}
-		
+
 	}
 
 	/**
@@ -158,9 +158,9 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 		else if(str.compareTo("Save the Graph")==0)
 		{
 			try {
-			initToAlgoGraph(this.graphGui);
-			GrapAlgo.save("graphSavedByGUI.csv");
-			JOptionPane.showMessageDialog(this,"The graph was saved at the project folder");
+				initToAlgoGraph(this.graphGui);
+				GrapAlgo.save("graphSavedByGUI.csv");
+				JOptionPane.showMessageDialog(this,"The graph was saved at the project folder");
 			}
 			catch (Exception FileNotFoundException) {
 				JOptionPane.showMessageDialog(this,"CAN'T to save, Invalid action");			}
@@ -170,14 +170,19 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 			try {
 				//this.graphGui=null;
 				//if(this.graphGui.edgeSize()==0&&this.graphGui.nodeSize()==0) {
-				
-				//this.graphGui.d
+
+				Collection<node_data> toRemoveAll=this.graphGui.getV();
+				Iterator<node_data> vert=toRemoveAll.iterator();
+				while(vert.hasNext()) {			
+					this.graphGui.getE(vert.next().getKey()).clear();;
+				}
+				this.graphGui.getV().clear();
 				initToAlgoGraph(this.graphGui);
 				String toLoad = JOptionPane.showInputDialog(this, "Enter name of the file to load");
 				GrapAlgo.init(toLoad);
 				graph gAlgotemp=GrapAlgo.copy();
 				GraphGUI g=new GraphGUI(gAlgotemp);
-				//repaint();
+				repaint();
 
 				JOptionPane.showMessageDialog(this,"The graph loaded");	
 				//}
@@ -267,11 +272,21 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 	 * this method add vertex to the canvas
 	 */
 	private void addNodePaintFromGui(Point3D p) {
-		node_data newVert=new NodeData(idNodes);
+		String idNewNode = JOptionPane.showInputDialog(this, "Enter the id of the node");
+		List<Integer> idS=new ArrayList<Integer>();
+		Collection<node_data> vertices= this.graphGui.getV();
+		Iterator<node_data> vert=vertices.iterator();
+		while(vert.hasNext()) {  
+			idS.add(vert.next().getKey());
+		}
+		int intIdNewNode=Integer.parseInt(idNewNode);
+		while(idS.contains(intIdNewNode)&&!idS.isEmpty())  {
+			intIdNewNode+=1;
+		}
+		node_data newVert=new NodeData(intIdNewNode);
 		this.graphGui.addNode(newVert);
 		newVert.setLocation(p);
 		idNodes++;
-		JOptionPane.showMessageDialog(this,"Yoy just add the vertex number: "+(idNodes-1));
 		JOptionPane.showMessageDialog(this,"The coardinate is : "+p.ix()+" "+p.iy()+" ");
 	}
 
