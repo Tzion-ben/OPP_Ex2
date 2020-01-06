@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -227,7 +228,8 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 			if(result!=null)
 				JOptionPane.showMessageDialog(this,"The sortest path is : "+result.toString());
 			else
-				JOptionPane.showMessageDialog(this,"The graph ISN'T conected , NO path ");
+				JOptionPane.showMessageDialog(this,"The graph ISN'T conected , NO path or it's invalid"
+						+ "nodes to work with them");
 		}
 		else if(str.compareTo("TSP")==0)
 		{
@@ -298,12 +300,28 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 			String srcId = JOptionPane.showInputDialog(this, "Enter source of the edge");
 			String destId = JOptionPane.showInputDialog(this, "Enter destination of the edge");
 			String edgeEeight = JOptionPane.showInputDialog(this, "Enter the weight of the edge");
-			this.graphGui.connect(Integer.parseInt(srcId), Integer.parseInt(destId),
-					Double.parseDouble(edgeEeight));
+			int srcIdint=Integer.parseInt(srcId);
+			int destIdint=Integer.parseInt(destId);
+
+			int equal=0;
+			Collection<node_data> toSheck=this.graphGui.getV();
+			Iterator<node_data> vert=toSheck.iterator();
+			while(vert.hasNext()) {
+				node_data tempN=vert.next();
+				if(tempN.getKey()==srcIdint||tempN.getKey()==destIdint) {
+					equal++;
+				}
+			}
+			
+			if (equal!=2) {
+				throw new RuntimeException();
+			}
+			this.graphGui.connect(srcIdint,destIdint ,Double.parseDouble(edgeEeight));
+
 			repaint();
 		}
 		catch (Exception e) {
-			JOptionPane.showMessageDialog(this,"THE EDGE IS ALREDY IN ,ERROR");
+			JOptionPane.showMessageDialog(this,"THE EDGE IS ALREDY IN or INVALID INPUT ,ERROR");
 		}
 	}
 

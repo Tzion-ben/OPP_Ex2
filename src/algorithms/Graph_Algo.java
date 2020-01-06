@@ -224,6 +224,11 @@ public class Graph_Algo implements graph_algorithms{
 		if (!flag)
 			return null;
 		//if the graph is not a strongly connected then we return null
+		Collection<node_data> toCheck=this.grafAlgo.getV();
+		if(!toCheck.contains(this.grafAlgo.getNode(src))||
+				!toCheck.contains(this.grafAlgo.getNode(dest))) 
+			return null;
+		//if it's invalid src or dest so return null
 
 		zeroAllTags();
 		infinityAllWeight();
@@ -254,8 +259,16 @@ public class Graph_Algo implements graph_algorithms{
 	public List<node_data> TSP(List<Integer> targets) {
 		boolean flag=isConnected();
 		if (!flag)
-			return null;
+			return null;	
 		//if the graph is not a strongly connected then we return null
+
+		Collection<node_data> toCheck=this.grafAlgo.getV();
+		for(int i=0;i<targets.size();i++){
+			if(!toCheck.contains(this.grafAlgo.getNode(targets.get(i))))
+				return null;
+		}
+		//if it's invalid targets so return null
+
 		List<node_data> pathToReturn=new ArrayList<node_data>();
 		int countNullAction=0;
 
@@ -310,7 +323,7 @@ public class Graph_Algo implements graph_algorithms{
 		DGraph graphToCopy=new DGraph(); 
 		zeroAllTags();
 		Collection<node_data> vertices= this.grafAlgo.getV();
-		
+
 		Iterator<node_data> vertLocations=vertices.iterator();
 		ArrayList<Point3D> allPoint=new ArrayList<Point3D>();
 		while(vertLocations.hasNext()) 
@@ -320,12 +333,12 @@ public class Graph_Algo implements graph_algorithms{
 		ArrayList<String> allInfo=new ArrayList<String>();
 		while(vertInfo.hasNext()) 
 			allInfo.add(vertInfo.next().getInfo());
-		
+
 		Iterator<node_data> vertW=vertices.iterator();
 		ArrayList<Double> allW=new ArrayList<Double>();
 		while(vertW.hasNext()) 
 			allW.add(vertW.next().getWeight());
-		
+
 		Iterator<node_data> vert=vertices.iterator();
 		int runLocations=0;
 		int runLInfo=0;
