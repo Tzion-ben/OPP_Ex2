@@ -274,22 +274,29 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 	 * this method add vertex to the canvas
 	 */
 	private void addNodePaintFromGui(Point3D p) {
-		String idNewNode = JOptionPane.showInputDialog(this, "Enter the id of the node");
-		List<Integer> idS=new ArrayList<Integer>();
-		Collection<node_data> vertices= this.graphGui.getV();
-		Iterator<node_data> vert=vertices.iterator();
-		while(vert.hasNext()) {  
-			idS.add(vert.next().getKey());
+		try {
+			String idNewNode = JOptionPane.showInputDialog(this, "Enter the id of the node");
+			if(idNewNode==null)
+				throw new RuntimeException();
+
+			List<Integer> idS=new ArrayList<Integer>();
+			Collection<node_data> vertices= this.graphGui.getV();
+			Iterator<node_data> vert=vertices.iterator();
+			while(vert.hasNext()) {  
+				idS.add(vert.next().getKey());
+			}
+			int intIdNewNode=Integer.parseInt(idNewNode);
+			while(idS.contains(intIdNewNode)&&!idS.isEmpty())  {
+				intIdNewNode+=1;
+			}
+			node_data newVert=new NodeData(intIdNewNode);
+			this.graphGui.addNode(newVert);
+			newVert.setLocation(p);
+			idNodes++;
+			JOptionPane.showMessageDialog(this,"The coardinate is : "+p.ix()+" "+p.iy()+" ");
 		}
-		int intIdNewNode=Integer.parseInt(idNewNode);
-		while(idS.contains(intIdNewNode)&&!idS.isEmpty())  {
-			intIdNewNode+=1;
-		}
-		node_data newVert=new NodeData(intIdNewNode);
-		this.graphGui.addNode(newVert);
-		newVert.setLocation(p);
-		idNodes++;
-		JOptionPane.showMessageDialog(this,"The coardinate is : "+p.ix()+" "+p.iy()+" ");
+		catch (Exception e) {
+			JOptionPane.showMessageDialog(this,"There is invalid input");		}
 	}
 
 	/**
@@ -312,7 +319,7 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 					equal++;
 				}
 			}
-			
+
 			if (equal!=2) {
 				throw new RuntimeException();
 			}

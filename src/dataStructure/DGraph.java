@@ -99,10 +99,12 @@ public class DGraph implements graph{
 			modeCount++;			
 			int edgesSize=edges.size();
 			for(int i=0;i<edgesSize;i++) {//O(n), |v|=n
-				node_data temp=this.vertesis.get(key);
-				if(key!=temp.getKey()) {
-					if(edges.get(i).containsKey(key)) 
-						edges.get(i).remove(key);
+				node_data temp=this.vertesis.get(i);
+				if(temp!=null) {
+					if(key!=temp.getKey()) {
+						if(edges.get(i).containsKey(key)) 
+							edges.get(i).remove(key);
+					}
 				}
 			}
 			this.edges.remove(key);//removing all the edges that goes from the
