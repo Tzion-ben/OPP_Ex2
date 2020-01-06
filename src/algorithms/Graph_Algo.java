@@ -97,7 +97,7 @@ public class Graph_Algo implements graph_algorithms{
 	}
 
 	/**
-	 * this method is saving the graph 
+	 * this method is saving the graph to csv file
 	 */
 	@Override
 	public void save(String file_name) {
@@ -169,8 +169,8 @@ public class Graph_Algo implements graph_algorithms{
 		}
 	}
 	/**
-	 * this method is checking if the directional graph is connect or not by
-	 * the method of DFS traversal on the graph recursivly
+	 * this method is checking if the directional graph is strongly connect or not by
+	 * the method of DFS traversal on the graph recursively
 	 */
 	@Override
 	public boolean isConnected() {
@@ -205,7 +205,7 @@ public class Graph_Algo implements graph_algorithms{
 
 	/**
 	 * this method return the length of the shortest path between src to dest,
-	 * if the path is does not exist it's returns -1
+	 * if the path is does not exist it's returns infinity (double)
 	 */
 	@Override
 	public double shortestPathDist(int src, int dest) {
@@ -218,6 +218,11 @@ public class Graph_Algo implements graph_algorithms{
 		return shWeight;
 	}
 
+	/**
+	 * this method returns a List of all the nodes (vertices) that include in the shortest 
+	 * path from src to dest, this method base on the dijkstra algorithm,
+	 * if it not exist it returns null.
+	 */
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
 		boolean flag=isConnected();
@@ -253,7 +258,8 @@ public class Graph_Algo implements graph_algorithms{
 		return null;
 	}
 	/**
-	 * this method 
+	 * this method computes a relatively short path which visit each node in the targets List,
+	 * not exist it returns null
 	 */
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
@@ -447,7 +453,7 @@ public class Graph_Algo implements graph_algorithms{
 
 	/**
 	 * this private method sets all the info at the graph vertesis to the strinng
-	 * with the number of the node id ofr helf find the path at the method shortest
+	 * with the number of the node id for help find the path at the method shortest
 
 	 */
 	private void setsAllInfo() {
@@ -461,7 +467,7 @@ public class Graph_Algo implements graph_algorithms{
 	}
 
 	/**
-	 * this private method find the vertex with the minimum Weight
+	 * this private method find the vertex with the minimum Weight at all the graph
 	 */
 	private int findMinWeight() {
 		int minNodeId=Integer.MAX_VALUE;

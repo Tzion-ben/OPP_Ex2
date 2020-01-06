@@ -206,13 +206,8 @@ public class DGraph implements graph{
 			return false;//if it's null or not instance of graph the false
 		return true;//if it passed all the chacking and it's good so return true
 	}//end equal
-	/**
-	 * this nethos clean all the edges and the all the nodes at the graph
-	 */
-	public void cleanAll() {
-		this.edges.clear();
-		this.vertesis.clear();
-	}
+	
+	
 	//****************** Private Methods and Data *****************
 
 	static int modeCount=0;//static value to count hoe many times the graph was changed

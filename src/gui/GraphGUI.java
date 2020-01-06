@@ -34,6 +34,10 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 	Collection<node_data> vertices;
 	Iterator<node_data> vert;
 
+	/**
+	 * this method Initializing a canvas and all the drawing for giving  graph 
+	 * @param g
+	 */
 	private void initGUIGraph(graph g) 
 	{
 
@@ -53,7 +57,7 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 	}
 
 	/**
-	 * this method returns the number of the next node id
+	 * this method returns the number the nodes at the graph
 	 */
 	private void checkNodeCount() {
 		if(this.graphGui!=null) {
@@ -107,7 +111,7 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 	}
 
 	/**
-	 * this function is pained the vertices and the edges
+	 * this method is pained the vertices and the edges
 	 */
 	public void paint(Graphics g)
 	{
@@ -147,7 +151,10 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 		}
 	}
 
-
+	/**
+	 * this method gets the action of the mouse and make the needed action like "isConnected" or 
+	 * add edge and so on , on the canvas
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
@@ -271,7 +278,7 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 	}
 
 	/**
-	 * this method add vertex to the canvas
+	 * this method add vertex to the canvas with the mouse click
 	 */
 	private void addNodePaintFromGui(Point3D p) {
 		try {
@@ -300,7 +307,7 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 	}
 
 	/**
-	 * this method add vertex to the canvas
+	 * this method add vertex to the canvas with the keyboard
 	 */
 	private void addEdgePaintFromGiu() {
 		try {
@@ -333,8 +340,8 @@ public class GraphGUI extends JFrame implements ActionListener, MouseListener
 	}
 
 	/**
-	 * this method make the locations of the nodes that at the corners
-	 * and make them in between the size of the my canvas
+	 * this method make the locations of the nodes that at the corners or out of the
+	 * canvas and make them in between the size of the my canvas.
 	 */
 	private void setWorngLocatins() {
 		Collection<node_data> vertices= this.graphGui.getV();
